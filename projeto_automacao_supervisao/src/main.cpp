@@ -1,9 +1,327 @@
 #include <Arduino.h>
 
-void setup() {
-  // put your setup code here, to run once:
+/* Estrutura da mensagem */
+#define READ_COIL   0X01
+#define READ_INPUT  0X02
+#define WRITE_COIL  0X05
+#define READ_ANALOG 0x06
+#define WRITE_ANALOG 0X07
+
+/* lÃ³gica negada para saÃ­das */
+#define ON  0
+#define OFF 1
+
+/* Parametros */
+#define SLAVE_ADR       "03"
+
+/* mapeamento das saÃ­das */
+//enum {OUT1=8, OUT2, OUT3, OUT4} OUTPUTS;
+#define OUTPUT_OFFSET 7
+#define OUT1 8
+#define OUT2 9
+#define OUT3 10
+#define OUT4 11
+
+/* mapeamento das entradas */
+#define INPUT_OFFSET 1
+#define IN1 2
+#define IN2 3
+#define IN3 4
+#define IN4 5
+
+/* mapeamento das entradas analógicas */
+#define ANALOG_INPUT_OFFSET -1
+#define AIN1 A0
+#define AIN2 A1
+#define AIN3 A2
+#define AIN4 A3
+
+/* mapeamento da saída analógica */
+#define ANALOG_OUTPUT_OFFSET 5
+#define AON1 6
+
+void msgHandler();
+uint8_t lrc(uint8_t *dado, uint8_t t);
+
+void setup()
+{   
+    Serial.begin(9600);
+    Serial.println("Sistema Iniciado");
+    // configuração de saídas
+    pinMode(OUT1,OUTPUT);
+    pinMode(OUT2,OUTPUT);
+    pinMode(OUT3,OUTPUT);
+    pinMode(OUT4,OUTPUT);
+
+    // configura entradas
+    pinMode(IN1,INPUT);
+    pinMode(IN2,INPUT);
+    pinMode(IN3,INPUT);
+    pinMode(IN4,INPUT);
+    
+    //iniciam desligadas
+    digitalWrite(OUT1, OFF);
+    digitalWrite(OUT2, OFF);
+    digitalWrite(OUT3, OFF);
+    digitalWrite(OUT4, OFF);
+
+    //teste
+    pinMode(6,OUTPUT);
+    analogWrite(6,255);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+    msgHandler();
+}
+
+
+void msgHandler()
+{
+    if (Serial.available() > 0)
+    {
+        while(Serial.available() > 0 )
+        {
+            // ler até encontrar LF
+            String msg = Serial.readStringUntil('\n');
+            String usar;
+            usar = msg;
+            int tam;
+            
+            //teste
+            Serial.print("Msg recebida: ");
+            Serial.println(msg);
+            
+            while(msg[tam] != '\0')
+                ++tam;
+            
+            if(tam == 13) tam-=1;
+            else if(tam == 14) tam-=2;
+            
+            //início válido
+            if(msg[0] == ':')
+            {
+                Serial.println("Caracter de inicio (:) encontrado");
+                
+                //Cálculo LRC
+                int j = 0;
+                uint8_t dado[tam/2], t, valor = 0;
+                
+                for (int i = 1; i <= tam; i+=2)  //conversao para decimal   
+                {                                  
+                    if (msg[i] > '9' && msg[i+1] > '9')
+                        dado[j] = ((usar[i]-'7'))*16 + ((usar[i+1]-'7'));
+                    
+                    else if (msg[i] > '9')
+                        dado[j] = ((usar[i]-'7'))*16 + (usar[i+1]-'0');
+                    
+                    else if (msg[i+1] > '9')
+                        dado[j] = (usar[i]-'0')*16 + ((usar[i+1]-'7'));
+                    
+                    else
+                        dado[j] = (usar[i]-'0')*16 + (usar[i+1]-'0');
+                        
+                    j++;
+                }
+                
+                t = (uint8_t)(sizeof(dado)) - 1;
+                valor = lrc(dado, t); //cálculo do lrc
+                Serial.print("Valor LRC ");
+                Serial.println(valor);
+
+                Serial.print("Valor dado ");
+                Serial.println(dado[t]);
+
+                //compara se o LRC da msg é igual ao calculado
+                if (valor == dado[t])
+                    Serial.println("LRC correto");
+                else
+                {
+                    Serial.println("LRC incorreto");
+                    break;
+                }
+                
+                //ve para qual escravo é a mensagem
+                if(msg[1]==SLAVE_ADR[0] && msg[2]==SLAVE_ADR[1] )
+                {
+                    Serial.println("Endereço do escravo correto");
+                    
+                    //processa a mensagem
+                    int cmd = (msg[3]-'0')*10 + (msg[4]-'0');
+
+                    switch (cmd)
+                    {
+                        case READ_COIL:
+                        {
+                            int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
+                            
+                            // debug
+                            Serial.print("Leitura na Saida ");
+                            Serial.println(coil-OUTPUT_OFFSET);
+
+                            // Ligada ou desligada?
+                            if(!digitalRead(coil))
+                            {
+                                msg[7]='F';
+                                msg[8]='F';
+                                msg[9]='0';
+                                msg[10]='0';
+                            }
+                            else
+                            {
+                                msg[7]='0';
+                                msg[8]='0';
+                                msg[9]='0';
+                                msg[10]='0';
+                            }
+                            
+                            // Resposta com o valor atual da entrada..
+                            Serial.print("Resposta do Escravo: ");
+                            Serial.println(msg);
+                            break;
+                        }
+                            
+                        case READ_INPUT:
+                        {
+                            // numero da entrada
+                            int contact = ((msg[5]-'0')*10 + (msg[6]-'0')) + INPUT_OFFSET;
+
+                            // debug
+                            Serial.print("Leitura na Entrada ");
+                            Serial.println(contact-INPUT_OFFSET);
+
+                            // Ligada ou desligada?
+                            if(digitalRead(contact))
+                            {
+                                msg[7]='F';
+                                msg[8]='F';
+                                msg[9]='0';
+                                msg[10]='0';
+                            }
+                            else
+                            {
+                                msg[7]='0';
+                                msg[8]='0';
+                                msg[9]='0';
+                                msg[10]='0';
+                            }
+                            
+                            // Resposta com o valor atual da entrada..
+                            Serial.print("Resposta do Escravo: ");
+                            Serial.println(msg);
+
+
+                            break;
+                        }
+                            
+                        //Escrever em uma saída
+                        case WRITE_COIL:
+                        {            
+                            // string para inteiro aplicando offset, saida 1 no Arduino está mapeada para o pino 8, saída 2 para o pino 9 ....
+                            int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
+
+                            // padrao é desligar
+                            int value = OFF;
+
+                            // debug
+                            Serial.print("Escrita na Saida ");
+                            Serial.println(coil-OUTPUT_OFFSET);
+
+                            // ligar ou desligar?
+                            if(msg[7]=='F' && msg[8]=='F' && msg[9]=='0' && msg[10]=='0')
+                            {
+                                value = ON;
+                                Serial.println(" -> Mudar para Ligado");
+                            }
+                            else if(msg[7]=='0' && msg[8]=='0' && msg[9]=='0' && msg[10]=='0')
+                            {
+                                value = OFF;
+                                Serial.println(" Mudar para Desligado");
+                            }
+                            // executao comando
+                            digitalWrite(coil, value);
+                            
+                            // Para esse caso, a resposta é um simples echo da mensagem original
+                            Serial.print("Resposta do Escravo: ");
+                            Serial.println(msg);
+                            //default:
+                            break;
+                        }
+                        case READ_ANALOG:
+                        { 
+                            // decodifica entrada a ser lida
+                            int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET;
+
+                            // debug
+                            Serial.print("Leitura na Entrada Analogica ");
+                            Serial.println(ain+1);
+
+                            // executao comando
+                            uint16_t value = analogRead(ain);
+                            
+                            // int para string
+                            char buf[5];
+                            sprintf(buf,"%04d", value);
+
+                            // monta valor de retonro
+                            msg[7]=buf[0];
+                            msg[8]=buf[1];
+                            msg[9]=buf[2];
+                            msg[10]=buf[3];
+                            
+                            // Responde para o mestre
+                            Serial.print("Resposta do Escravo: ");
+                            Serial.println(msg);
+                            //default:
+                            break;
+                        }
+
+                        case WRITE_ANALOG:
+                        {
+                            // decodifica entrada a ser lida
+                            int aon = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_OUTPUT_OFFSET;
+                            // de string para inteito
+                            int value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
+
+                            // debug
+                            Serial.print("Escrita na Saida Analogica ");
+                            Serial.println(aon-ANALOG_OUTPUT_OFFSET);
+                            Serial.print("Valor: ");
+                            Serial.println(value);
+
+                            // escreve na saída
+                            analogWrite(aon, value);
+
+                            // Para esse caso, a resposta é um simples echo da mensagem original
+                            Serial.print("Resposta do Escravo: ");
+                            Serial.println(msg);
+
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Serial.println("Mensagem para outro escravo");
+                }
+            }
+            else
+            {
+                Serial.println("Comando desconhecido");
+            }
+        }
+    }
+}
+
+uint8_t lrc(uint8_t *dado, uint8_t t)
+{
+    uint8_t val_lrc = 0;
+    for(int i = 0; i < t; i++)
+    {
+        if((val_lrc + dado[i]) & 0xFF)
+            val_lrc = val_lrc + dado[i];
+    }
+    val_lrc = ((val_lrc^0xFF) + 1) & 0xFF;
+
+    return val_lrc;
 }
