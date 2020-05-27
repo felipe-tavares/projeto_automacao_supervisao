@@ -1,0 +1,14 @@
+body {
+    background-color: lightblue;
+  }
+  
+h1 {
+    color: navy;
+    margin-left: 20px;
+  }
+
+
+button {
+  margin-top: 3px;
+  margin-right: 2px;
+}
