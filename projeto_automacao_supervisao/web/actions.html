@@ -6,11 +6,12 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"> </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"> </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"> </script>
-        
+
         <title>Ações</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+
     </head>
     
 	<body>
@@ -23,18 +24,90 @@
 					<a href="./monitor.html">Monitoramento</a>
 					<a href="./config.html">Configurações</a>
 				</nav>
-                <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
             </div>
         </header>
 
             <!-- Banner -->
 			<section id="banner">
-				<div class="inner">
-					<div class="flex">
-                        <img src="./images/planta.png" alt="Planta baixa" width="500" height="600">
-					</div>
-				</div>
+				<div class="container">
+                    <div class="actions row">
+                        <div class="col-md-auto">
+                            <div class="border rounded">
+                                <label class="h3 font-weight-bold">Entrada Principal</label>
+                                <form class="form-inline">
+                                        <label for="pwporta" class="h5 font-weight-bold ml-2">Abertura Remota</label>
+                                        <input type="password" class="col-md-3 ml-2" class="form-control-plaintext" id="pwporta" placeholder="PASSWORD">
+                                        <button type="submit" class="btn btn-sm btn-success ml-2" onclick="">Abrir</button>
+                                </form>
+                                <form>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="">Cancelar Alarme</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-auto mt-3">
+                                <div class="border rounded">
+                                    <label class="h3 font-weight-bold">Quarto e Banheiro</label>
+    
+                                        <form class="row">
+                                            <label class="h5 font-weight-bold ml-4"><u>Luminosidade da lâmpada do quarto</u></label>
+                                        </form>
+    
+                                        <form class="form-inline">
+                                            <label class="h5 ml-2 mr-2">Desligada</label>
+                                            <input type="range" id="lumLampQuarto" min="0" max="100">
+                                            <label class="h5 ml-2">Brilho Máximo</label>
+                                        </form>
+                                        
+                                </div>
+    
+                            </div>
+
+                        </div>
+
+                            <div class="col-md-5">
+                                <div class="border rounded">
+                                    <label class="h3 font-weight-bold">Sala de estar</label>
+                                        <form class="form-inline ml-2">
+                                            <label for="manualtmpAC" class="h5 font-weight-bold">Temperatura do AC</label>
+                                            <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="manualtmpAC" placeholder="00">
+                                            <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
+                                        </form>
+
+                                        <form class="row">
+                                            <label class="h5 font-weight-bold ml-4"><u>Luminosidade da lâmpada</u></label>
+                                        </form>
+
+                                        <form class="form-inline">
+                                            <label class="h5 ml-2 mr-2">Desligada</label>
+                                            <input type="range" id="lumLampSala" min="0" max="100">
+                                            <label class="h5 ml-2">Brilho Máximo</label>
+                                        </form>
+
+
+                                        <form class="row">
+                                        <label class="h5 font-weight-bold ml-4"><u>Janelas da sala de estar e jantar</u></label>
+                                        </form>
+
+                                        <form class="row">
+                                            <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
+                                        </form>
+
+                                        <form class="form-inline">
+                                            <label class="h5 ml-2 mr-2">Fechada</label>
+                                            <input type="range" id="posCortina" min="0" max="100">
+                                            <label class="h5 ml-2">Aberta</label>
+                                        </form>
+                                        
+                                </div>
+
+                            </div>
+
+                    </div>
+					
+                </div>
+                
             </section>
+
 	</body>
 
     <footer id="myFooter">
