@@ -30,11 +30,88 @@
 
         <section id="banner">
             <div class="inner">
-                <div class="flex">
-                    <a>
-                        
-                    </a>
+                <div class="container">
+                    <div class="monitor row">
+
+                        <div class="col-md-auto">
+                            <div class="border rounded">
+                                <form>
+                                <label class="h3 font-weight-bold">Entrada Principal</label>
+                                </form>
+                                <form class="form-inline">
+                                        <label for="statusporta" class="h5 font-weight-bold ml-2">Estado da Porta</label>
+                                        <input type="text" class="col-md-4 ml-2" class="form-control-plaintext" id="statusporta" disabled>
+                                </form>
+                                <form class="form-inline">
+                                    <label for="statusporta" class="h5 font-weight-bold ml-2">Alarme</label>
+                                    <input type="text" class="col-md-4 ml-2" class="form-control-plaintext" id="statusporta" disabled>
+                                </form>
+                            </div>
+
+                            <div class="col-md-auto mt-3">
+                                <div class="border rounded">
+                                    <form>     
+                                    <label class="h3 font-weight-bold">Quarto e Banheiro</label>
+                                    </form>
+    
+                                    <form class="row">
+                                        <label class="h5 font-weight-bold ml-4"><u>Luminosidade da lâmpada do quarto</u></label>
+                                    </form>
+    
+                                    <form class="form-inline">
+                                        <label class="h5 ml-2 mr-2">Desligada</label>
+                                        <input type="range" id="statuslumLampQuarto" min="0" max="100" disabled>
+                                        <label class="h5 ml-2">Brilho Máximo</label>
+                                    </form>
+                                        
+                                </div>
+    
+                            </div>
+
+                        </div>
+
+                            <div class="col-md-5">
+                                <div class="border rounded">
+                                    <label class="h3 font-weight-bold">Sala de estar</label>
+                                        <form class="form-inline ml-2">
+                                            <label for="statustmpAC" class="h5 font-weight-bold">Temperatura do AC</label>
+                                            <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="statustmpAC" disabled>
+                                        </form>
+
+                                        <form class="row">
+                                            <label class="h5 font-weight-bold ml-4"><u>Luminosidade da lâmpada</u></label>
+                                        </form>
+
+                                        <form class="form-inline">
+                                            <label class="h5 ml-2 mr-2">Desligada</label>
+                                            <input type="range" id="statuslumLampSala" min="0" max="100" disabled>
+                                            <label class="h5 ml-2">Brilho Máximo</label>
+                                        </form>
+
+
+                                        <form class="row">
+                                        <label class="h5 font-weight-bold ml-4"><u>Janelas da sala de estar e jantar</u></label>
+                                        </form>
+
+                                        <form class="row">
+                                            <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
+                                        </form>
+
+                                        <form class="form-inline">
+                                            <label class="h5 ml-2 mr-2">Fechada</label>
+                                            <input type="range" id="statusposCortina" min="0" max="100" disabled>
+                                            <label class="h5 ml-2">Aberta</label>
+                                        </form>
+                                        
+                                </div>
+
+                            </div>
+
+
+                    </div>
+
                 </div>
+
             </div>
         </section>
     </body>
