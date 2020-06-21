@@ -3,8 +3,10 @@
 // modulos
 var http = require('http')
 var   fs = require('fs');
+
 // porta
 const port = 3000
+
 // pagina principal
 const mainPage = 'index.html'
 const myStyle  = 'style.css'
@@ -88,7 +90,7 @@ function LRC(str)
 /*****   Porta Serial *****/
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const sPort = new SerialPort('COM9', {
+const sPort = new SerialPort('COM7', {
   baudRate: 9600
 })
 const parser = new Readline();
