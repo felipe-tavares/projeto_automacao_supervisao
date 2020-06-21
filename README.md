@@ -53,28 +53,47 @@
      
 + ## Interface WEB
 
-  + O bloco de interface WEB contém 3 páginas. Sendo:
-
-
-
+  + O bloco de interface WEB contém 4 páginas. Sendo:
+    + **Página Inicial: ** Primeira página do sistema a ser mostrada
+    
+      <p align="center">
+        <img width="540" height="520" src="pages/index.PNG">
+      </p>
+    
+    
+    + **Página de Configurações: ** Inclui os itens descritos no projeto e também
+      as configurações de comunicação entre o servidor e controlador (porta serial,
+      baudrate, endereço de cliente).
+      
+      <p align="center">
+        <img width="540" height="520" src="pages/configs.PNG">
+      </p>
+    
+    
+    + **Página de Monitoração: ** Mostra o estado atual dos sensores e
+      atuadores presentes no projeto, é atualizada a cada 1 segundo.
+      
+      <p align="center">
+        <img width="540" height="520" src="pages/monitor.PNG">
+      </p>
+    
+    
+    + **Página de Ações: ** Apresenta os detalhes específicos de cada cômodo,
+      além das opções de controle manual sobre os atuadores.
+      
+      <p align="center">
+        <img width="540" height="520" src="pages/actions.PNG">
+      </p>
+    
 + ## Periféricos
 
-  + **Sensor:** O sensor de temperatura utilizado é o sensor analógico LM35.
-  + **MCU:** O MCU utilizado tanto na simulação quanto na montagem prática foi o ATMega328p (Arduino) e ele é o responsável pelas 
-  tarefas de controle e interface  do sistema.
-  + **Driver:** O driver utilizado é o circuito integrado L293D - Quadruple Half-H Drivers.
-  + **Aquecedor:** O aquecimento é realizado com um resistor de 22Ω 1/2W.
-  + **Ventilador:** O ventilador é composto por um motor e uma hélice, o modelo utilizado tem as
-seguintes características:
-       + Alimentação: 12 VDC
-       + Corrente: 130mA 
+  + **Sensores e Atuadores:** ...
+  + **MCU:** O MCU utilizado tanto na simulação quanto na montagem prática foi o ATMega328p (Arduino).
 
 + ## Software
   
-  + **IDE:** A IDE utilizada foi a [Sloeber](https://eclipse.baeyens.it/), IDE do Eclipse para Arduino.
-  + **Bibliotecas utilizadas:** LiquidCrystal e [Bounce2](https://github.com/thomasfredericks/Bounce2).
-  + **Definições:** O arquivo definitions.h contém as definições dos pinos do MCU, o ID das telas e os métodos.
-  + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta Release.
+  + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/).
+  + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta **\.pio\build\uno**.
     
 
 + ## Autores
