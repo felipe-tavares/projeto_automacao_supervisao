@@ -47,8 +47,8 @@
     
   + ### Quarto e banheiro
   
-  + Possui luminosidade controlada remotamente, para isso, uma saída analógica é utilizada, sendo 0V lâmpada desligada e 5V lâmpada em seu brilho máximo.
-  + Possui sensor de temperatura analógico do tipo LM35, quando a temperatura é inferior a 17 graus celsius, o aquecedor liga. O controle de temperatura utilizado é do tipo banda morta, o valor da banda morta é configurado na página de parâmetros de configuração da interface WEB.
+    + Possui luminosidade controlada remotamente, para isso, uma saída analógica é utilizada, sendo 0V lâmpada desligada e 5V lâmpada em seu brilho máximo.
+    + Possui sensor de temperatura analógico do tipo LM35, quando a temperatura é inferior a 17 graus celsius, o aquecedor liga. O controle de temperatura utilizado é do tipo banda morta, o valor da banda morta é configurado na página de parâmetros de configuração da interface WEB.
      
      
 + ## Interface WEB
