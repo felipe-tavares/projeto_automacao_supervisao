@@ -10,19 +10,19 @@
         <title>Ações</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="main.css" >
 
     </head>
     
 	<body>
 
-        <header id="header" class="header">
+        <header id="header">
             <div class="inner">
-                <a href="actions.html" class="logo"><strong class="text-uppercase"><center>Ações</center></strong>
+                <a href="./actions" class="logo"><strong>Ações</strong>
                 <nav id="nav">
-					<a href="./index.html" class="mr-4">Home</a>
-					<a href="./monitor.html" class="mr-4">Monitoramento</a>
-					<a href="./config.html">Configurações</a>
+					<a href="./">Home</a>
+					<a href="./monitor">Monitoramento</a>
+					<a href="./config">Configurações</a>
 				</nav>
             </div>
         </header>
@@ -48,14 +48,14 @@
                             <div class="col-md-auto mt-3">
                                 <div class="border rounded">
                                     <label class="h3 font-weight-bold">Quarto e Banheiro</label>
-    
+
                                         <form class="row">
                                             <label class="h5 font-weight-bold ml-4"><u>Luminosidade da lâmpada do quarto</u></label>
                                         </form>
     
                                         <form class="form-inline">
                                             <label class="h5 ml-2 mr-2">Desligada</label>
-                                            <input type="range" id="lumLampQuarto" min="0" max="100">
+                                            <input type="range" id="lumLampQuarto" min="0" max="100" onchange="mudarValorLuz1()">
                                             <label class="h5 ml-2">Brilho Máximo</label>
                                         </form>
                                         
@@ -80,7 +80,7 @@
 
                                         <form class="form-inline">
                                             <label class="h5 ml-2 mr-2">Desligada</label>
-                                            <input type="range" id="lumLampSala" min="0" max="100">
+                                            <input type="range" id="lumLampSala" min="0" max="100" onchange="mudarValorLuz2()">
                                             <label class="h5 ml-2">Brilho Máximo</label>
                                         </form>
 
@@ -95,7 +95,7 @@
 
                                         <form class="form-inline">
                                             <label class="h5 ml-2 mr-2">Fechada</label>
-                                            <input type="range" id="posCortina" min="0" max="100">
+                                            <input type="range" id="posCortina" min="0" max="100" onchange="mudarValorCortina()">
                                             <label class="h5 ml-2">Aberta</label>
                                         </form>
                                         
@@ -108,6 +108,26 @@
                 </div>
                 
             </section>
+
+            <script>
+                //mudar a intensidade da luz do quarto e banheiro
+                function mudarValorLuz1() {
+                    var valorLuz1 = document.getElementById('lumLampQuarto').value; 
+                    console.log(valorLuz1);
+                }
+
+                //mudar a intensidade da luz da sala de estar
+                function mudarValorLuz2() {
+                    var valorLuz2 = document.getElementById('lumLampSala').value; 
+                    console.log(valorLuz2);
+                }
+
+                //mudar a posição da cortina
+                function mudarValorCortina() {
+                    var valorCortina = document.getElementById('posCortina').value; 
+                    console.log(valorCortina);
+                }
+            </script>
 
 	</body>
 

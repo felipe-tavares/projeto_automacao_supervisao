@@ -2,137 +2,204 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"> </script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"> </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"> </script>
-       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
         <title>Configuração</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="main.css">
     </head>
 
     <body>
-        <header id="header" class="header">
+        <header id="header">
             <div class="inner">
-                <a href="config.html" class="logo"><strong class="text-uppercase"><center>Configurações</center></strong>
-                <nav id="nav">
-					<a href="./index.html" class="mr-4">Home</a>
-					<a href="./monitor.html" class="mr-4">Monitoramento</a>
-					<a href="./actions.html">Ações</a>
-				</nav>
-            </div>
-        </header>
+                <a href="./config" class="logo">
+                    <strong>Configurações</strong>
+                    <nav id="nav">
+                        <a href="./">Home</a>
+                        <a href="./monitor">Monitoramento</a>
+                        <a href="./actions">Ações</a>
+                    </nav>
+                </div>
+            </header>
 
-        <!-- Banner -->
-		<section id="banner">
-            <div class="container">
-                <div class="config row">
+            <!-- Banner -->
+            <section id="banner">
+                <div class="container">
+                    <div class="inner row">
 
-                    <div class="col-md-5">
-                        <div class="border rounded">
-                            <label class="h3 font-weight-bold">Configurações de Comunicação</label>
-                            <form class="form-inline">
-                                <label for="portaSerial" class="h5 font-weight-bold ml-2">Porta Serial</label>
-                                <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="portaSerial" placeholder="0000000">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
-
-                            <form class="form-inline">
-                                <label for="baudrate" class="h5 font-weight-bold ml-2">Baudrate</label>
-                                <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="baudrate" placeholder="9600">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
-
-                            <form class="form-inline">
-                                <label for="endSlave" class="h5 font-weight-bold ml-2">Endereço de escravo</label>
-                                <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="endSlave" placeholder="00000000">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
-
-                        </div>
-
-                        <div class="col-md-auto mt-3">
+                        <div class="col-md-5">
                             <div class="border rounded">
-                                <label class="h3 font-weight-bold">Entrada Principal</label>
+                                <label class="h3 font-weight-bold">Configurações de Comunicação</label>
                                 <form class="form-inline">
+                                    <label for="portaSerial" class="h5 font-weight-bold ml-2">Porta Serial</label>
+                                    <input type="text" class="form-control-plaintext" id="portaSerial" placeholder="0000000">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarPortaSerial()">Confirmar</button>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label for="baudrate" class="h5 font-weight-bold ml-2">Baudrate</label>
+                                    <input type="text" class="form-control-plaintext" id="baudrate" placeholder="9600">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarBaudrate()">Confirmar</button>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label for="endSlave" class="h5 font-weight-bold ml-2">Endereço de escravo</label>
+                                    <input type="text" class="form-control-plaintext" id="endSlave" placeholder="00000000">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarEndereçoDeEscravo()">Confirmar</button>
+                                </form>
+
+                            </div>
+
+                            <div class="col-md-auto mt-3">
+                                <div class="border rounded">
+                                    <label class="h3 font-weight-bold">Entrada Principal</label>
+                                    <form class="form-inline">
                                         <label for="pwporta" class="h5 font-weight-bold ml-2">Senha da Porta</label>
-                                        <input type="password" class="col-md-4 ml-2" class="form-control-plaintext" id="pwporta" placeholder="PASSWORD">
-                                        <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                                </form>
-    
-                                <form class="form-inline">
-                                        <label for="closetimout" class="h5 font-weight-bold ml-2">Close Timeout</label>                                               
-                                        <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="closetimout" placeholder="00:00">
-                                        <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                                </form>
-                                
+                                        <input type="password" class="form-control-plaintext" id="pwporta" placeholder="PASSWORD">
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarSenha()">Confirmar</button>
+                                    </form>
+
+                                    <form class="form-inline">
+                                        <label for="closetimout" class="h5 font-weight-bold ml-2">Close Timeout</label>
+                                        <input type="text" class="form-control-plaintext" id="closetimout" placeholder="00:00">
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarCloseTime()">Confirmar</button>
+                                    </form>
+
+                                </div>
+
                             </div>
-    
-                        </div>
-
-                    </div>
-
-
-                    <div class="col-md-6">
-                        <div class="border rounded">
-                            <label class="h3 font-weight-bold">Sala de estar</label>
-                            <form class="form-inline">
-                                <label for="tmpAC" class="h5 font-weight-bold ml-2">Temperatura Padrão do AC</label>
-                                <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="tmpAC" placeholder="00">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
-
-                            <form class="form-inline">
-                                <label class="h5 font-weight-bold ml-2"><u>Horário da Abertura das Cortinas</u></label>
-                            </form>
-
-                            <form class="form-inline">
-                                <label for="hs1Cortinas" class="h5 font-weight-bold ml-2">Metade da abertura</label>
-                                <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="hs1Cortinas" placeholder="00:00">
-                                <button type="button" class="btn btn-sm btn-primary ml-2 mb-2 mt-2" onclick="">Confirmar</button>
-                            </form>
-
-                            <form class="form-inline">
-                                <label for="hs2Cortinas" class="h5 font-weight-bold ml-2">Abertura Total</label>
-                                <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="hs2Cortinas" placeholder="00:00">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
-
-                            <form class="form-inline">
-                                <label for="hs3Cortinas" class="h5 font-weight-bold ml-2">Fechamento total</label>
-                                <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="hs3Cortinas" placeholder="00:00">
-                                <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
-                            </form>
 
                         </div>
 
-                        <div class="col-md-auto mt-3">
+                        <div class="col-md-6">
                             <div class="border rounded">
-                                <label class="h3 font-weight-bold">Quarto e Banheiro</label>
+                                <label class="h3 font-weight-bold">Sala de estar</label>
                                 <form class="form-inline">
-                                    <label for="valorBandaMorta" class="h5 font-weight-bold ml-2">Valor da Banda Morta</label>
-                                    <input type="text" class="col-md-2 ml-2" class="form-control-plaintext" id="valorBandaMorta" placeholder="00">
-                                    <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
+                                    <label for="tmpAC" class="h5 font-weight-bold ml-2">Temperatura Padrão do AC</label>
+                                    <input type="text" class="form-control-plaintext" id="tmpAC" placeholder="00">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarTemperaturaAC()">Confirmar</button>
                                 </form>
-    
+
+                                <form class="form-inline">
+                                    <label class="h5 font-weight-bold ml-2">
+                                        <u>Horário da Abertura das Cortinas</u>
+                                    </label>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label for="hs1Cortinas" class="h5 font-weight-bold ml-2">Metade da abertura</label>
+                                    <input type="text" class="form-control-plaintext" id="hs1Cortinas" placeholder="00:00">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2 mb-2 mt-2" onclick="salvarMetadeAbertura()">Confirmar</button>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label for="hs2Cortinas" class="h5 font-weight-bold ml-2">Abertura Total</label>
+                                    <input type="text" class="form-control-plaintext" id="hs2Cortinas" placeholder="00:00">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarTotalAbertura()">Confirmar</button>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label for="hs3Cortinas" class="h5 font-weight-bold ml-2">Fechamento total</label>
+                                    <input type="text" class="form-control-plaintext" id="hs3Cortinas" placeholder="00:00">
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarFechamentoTotal()">Confirmar</button>
+                                </form>
+
                             </div>
-    
+
+                            <div class="col-md-auto mt-3">
+                                <div class="border rounded">
+                                    <label class="h3 font-weight-bold">Quarto e Banheiro</label>
+                                    <form class="form-inline">
+                                        <label for="valorBandaMorta" class="h5 font-weight-bold ml-2">Valor da Banda Morta</label>
+                                        <input type="text" class="form-control-plaintext" id="valorBandaMorta" placeholder="00">
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" onclick="salvarBandaMorta()">Confirmar</button>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
-        </section>
-           
-    </body>
+            <script>
 
-    <footer id="myFooter">
-        <a> </a>
-    </footer>
+                //salvar as variaveis
+                function salvarPortaSerial() {
+                    var PortaSerial = document.getElementById("portaSerial").value;
+                    alert("Configurado com sucesso!");
+                    console.log(PortaSerial);
+                }
 
-</html>
+                function salvarBaudrate() {
+                    var Baudrate = document.getElementById("baudrate").value;
+                    alert("Configurado com sucesso!");
+                    console.log(Baudrate);
+                }
+
+                function salvarEndereçoDeEscravo() {
+                    var EndereçoDeEscravo = document.getElementById("endSlave").value;
+                    alert("Configurado com sucesso!");
+                    console.log(EndereçoDeEscravo);
+                }
+
+                function salvarSenha() {
+                    var senha = document.getElementById("pwporta").value;
+                    alert("Configurado com sucesso!");
+                    console.log(senha);
+                }
+
+                function salvarCloseTime() {
+                    var closeTimeOut = document.getElementById("closetimout").value;
+                    alert("Configurado com sucesso!");
+                    console.log(closeTimeOut);
+                }
+
+                function salvarTemperaturaAC() {
+                    var temperaturaAC = document.getElementById("tmpAC").value;
+                    alert("Configurado com sucesso!");
+                    console.log(temperaturaAC);
+                }
+
+                function salvarMetadeAbertura() {
+                    var metadeAbertura = document.getElementById("hs1Cortinas").value;
+                    alert("Configurado com sucesso!");
+                    console.log(metadeAbertura);
+                }
+
+                function salvarTotalAbertura() {
+                    var totalAbertura = document.getElementById("hs2Cortinas").value;
+                    alert("Configurado com sucesso!");
+                    console.log(totalAbertura);
+                }
+
+                function salvarFechamentoTotal() {
+                    var fechamentoTotal = document.getElementById("hs3Cortinas").value;
+                    alert("Configurado com sucesso!");
+                    console.log(fechamentoTotal);
+                }
+
+                function salvarBandaMorta() {
+                    var bandaMorta = document.getElementById("valorBandaMorta").value;
+                    alert("Configurado com sucesso!");
+                    console.log(bandaMorta);
+                }
+
+            </script>
+
+        </body>
+
+        <footer id="myFooter">
+            <a></a>
+        </footer>
+
+    </html>

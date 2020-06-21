@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <meta http-equiv="refresh" content="1;url=./monitor.html"> <!--Atualiza a página a cada 1 segundo-->
+        <meta http-equiv="refresh" content="1;url=./monitor"> <!--Atualiza a página a cada 1 segundo-->
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"> </script>
@@ -12,18 +12,44 @@
         <title>Monitoramento</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="main.css" >
 
+        <script>src="/socket.io/socket.io.js"</script>
+        <script DEFER="DEFER">
+            var socket = io();
+
+            socket.on('retorno', function([id, operacao, estado]){ 
+                console.log("id: ", id, " operacao: ", operacao, " estado: ", estado[0]+estado[1]+estado[2]+estado[3]);
+                if(operacao == 1){
+                    document.getElementById("saida"+ id).value = estado;
+                }
+                if(operacao == 2){
+                    document.getElementById("entrada"+ id).value = estado;
+                }
+                if(operacao == 6){
+                    document.getElementById("analogica"+ id).value = estado[0]+estado[1]+estado[2]+estado[3];
+                }
+                
+            });
+
+            function LeStatusPorta()
+            {   
+                socket.emit('state', ['01', '0'+ x, '0000'] );
+                console.log('Lendo saida digital '+ x);
+            }
+
+            LeStatusPorta();
+        </script>
     </head>
 
     <body>
-        <header id="header" class="header">
+        <header id="header">
             <div class="inner">
-                <a href="monitor.html" class="logo"><strong class="text-uppercase"><center>Monitoramento</center></strong>
+                <a href="./monitor" class="logo"><strong>Monitoramento</strong>
                 <nav id="nav">
-					<a href="./index.html" class="mr-4">Home</a>
-                    <a href="./actions.html" class="mr-4">Ações</a>
-                    <a href="./config.html">Configurações</a>
+					<a href="./">Home</a>
+                    <a href="./actions">Ações</a>
+                    <a href="./config">Configurações</a>
 				</nav>
             </div>
         </header>
