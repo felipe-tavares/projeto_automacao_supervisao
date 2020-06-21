@@ -38,8 +38,11 @@
 #define AIN4 A3
 
 /* mapeamento da saída analógica */
-#define ANALOG_OUTPUT_OFFSET 11
-#define AON1 12
+#define ANALOG_OUTPUT_OFFSET 8
+#define AON1 9
+#define AON2 10
+#define AON3 11
+#define AON4 12
 
 #define LM35  A10
 #define TAM  100
@@ -93,6 +96,9 @@ void setup()
   digitalWrite(OUT3, OFF);
   digitalWrite(OUT4, OFF);
   pinMode( AON1,OUTPUT);
+   pinMode( AON2,OUTPUT);
+    pinMode( AON3,OUTPUT);
+     pinMode( AON4,OUTPUT);
 
 Le_temperatura();
 }
