@@ -93,6 +93,7 @@
 + ## Software
   
   + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/).
+  + **Protocolo de Comunicação:** O protocolo de comunicação utilizado foi o [Socket.IO](https://socket.io/).
   + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta **\.pio\build\uno**.
     
 
