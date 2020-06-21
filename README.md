@@ -54,35 +54,35 @@
 + ## Interface WEB
 
   + O bloco de interface WEB contém 4 páginas. Sendo:
-    + **Página Inicial: ** Primeira página do sistema a ser mostrada
+    + **Página Inicial:** Primeira página do sistema a ser mostrada
     
       <p align="center">
-        <img width="540" height="520" src="pages/index.PNG">
+        <img width="740" height="420" src="pages/index.PNG">
       </p>
     
     
-    + **Página de Configurações: ** Inclui os itens descritos no projeto e também
+    + **Página de Configurações:** Inclui os itens descritos no projeto e também
       as configurações de comunicação entre o servidor e controlador (porta serial,
       baudrate, endereço de cliente).
       
       <p align="center">
-        <img width="540" height="520" src="pages/configs.PNG">
+        <img width="740" height="420" src="pages/configs.PNG">
       </p>
     
     
-    + **Página de Monitoração: ** Mostra o estado atual dos sensores e
+    + **Página de Monitoração:** Mostra o estado atual dos sensores e
       atuadores presentes no projeto, é atualizada a cada 1 segundo.
       
       <p align="center">
-        <img width="540" height="520" src="pages/monitor.PNG">
+        <img width="740" height="420" src="pages/monitor.PNG">
       </p>
     
     
-    + **Página de Ações: ** Apresenta os detalhes específicos de cada cômodo,
+    + **Página de Ações:** Apresenta os detalhes específicos de cada cômodo,
       além das opções de controle manual sobre os atuadores.
       
       <p align="center">
-        <img width="540" height="520" src="pages/actions.PNG">
+        <img width="740" height="420" src="pages/actions.PNG">
       </p>
     
 + ## Periféricos
