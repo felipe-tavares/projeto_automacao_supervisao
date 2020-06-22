@@ -75,7 +75,7 @@
                                 <form class="form-inline ml-2">
                                     <label for="manualtmpAC" class="h5 font-weight-bold">Temperatura do AC</label>
                                     <input type="text" class="form-control-plaintext" id="manualtmpAC" placeholder="00">
-                                    <button type="submit" class="btn btn-sm btn-primary ml-2" onclick="">Confirmar</button>
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" onclick="mudarTempAr()">Confirmar</button>
                                 </form>
 
                                 <form class="row">
@@ -119,36 +119,93 @@
             <script>
                 var socket = io();
 
+
+                function mudarTempAr() 
+                {
+                    var tempAc = document.getElementById('manualtmpAC').value;
+                    alert("Configurado com sucesso!");
+                    if (tempAc == 0)
+                    {
+                        socket.emit('state', ['07', '03', '00' + '00'] );
+                        console.log('Novo valor LuzQuarto '+ tempAc);
+                    }
+                    else if (tempAc < 10 && tempAc > 0) 
+                    {
+                        socket.emit('state', ['07', '03', '000'+ tempAc] );
+                        console.log('Novo valor LuzQuarto '+ tempAc);
+                    }
+                    else if(tempAc < 100 && tempAc > 10)
+                    {
+                        socket.emit('state', ['07', '03', '00'+ tempAc] );
+                        console.log('Novo valor LuzQuarto '+ tempAc);
+                    }
+                }
+                
                 //mudar a intensidade da luz do quarto e banheiro
                 function mudarValorLuz1() {
                     var valorLuz1 = document.getElementById('lumLampQuarto').value;
-                    if(valorLuz1 > 0 && valorLuz1 < 100)
+
+                    if (valorLuz1 == 0)
                     {
-                        socket.emit('state', ['07', '01', '00' + valorLuz1] );
-                        console.log('Novo valor da luz '+ valorLuz1);
+                        socket.emit('state', ['07', '01', '00' + '00'] );
+                        console.log('Novo valor LuzQuarto '+ valorLuz1);
                     }
-                    else
+                    else if (valorLuz1 < 10 && valorLuz1 > 0) 
                     {
-                    socket.emit('state', ['07', '01', '0' + valorLuz1]);
-                    console.log('Novo valor da luz ' + valorLuz1);
+                        socket.emit('state', ['07', '01', '000'+ valorLuz1] );
+                        console.log('Novo valor LuzQuarto '+ valorLuz1);
                     }
-                    console.log(valorLuz1);
+                    else if(valorLuz1 < 100 && valorLuz1 > 10)
+                    {
+                        socket.emit('state', ['07', '01', '00'+ valorLuz1] );
+                        console.log('Novo valor LuzQuarto '+ valorLuz1);
+                    }
+                    else 
+                    {
+                        socket.emit('state', ['07', '01', '0'+ valorLuz1] );
+                        console.log('Novo valor LuzQuarto '+ valorLuz1);
+                    }
+
                 }
 
                 //mudar a intensidade da luz da sala de estar
                 function mudarValorLuz2() {
                     var valorLuz2 = document.getElementById('lumLampSala').value;
-                    socket.emit('state', ['07', '01', '0' + valorLuz2]);
-                    console.log('Novo valor PWM ' + valorLuz2);
-                    console.log(valorLuz2);
+                    if (valorLuz2 == 0)
+                    {
+                        socket.emit('state', ['07', '02', '00' + '00'] );
+                        console.log('Novo valor LuzSala '+ valorLuz2);
+                    }
+                    else if (valorLuz2 < 10 && valorLuz2 > 0) 
+                    {
+                        socket.emit('state', ['07', '02', '000'+ valorLuz2] );
+                        console.log('Novo valor LuzSala '+ valorLuz2);
+                    }
+                    else if(valorLuz2 < 100 && valorLuz2 > 10)
+                    {
+                        socket.emit('state', ['07', '02', '00'+ valorLuz2] );
+                        console.log('Novo valor LuzSala '+ valorLuz2);
+                    }
+                    else 
+                    {
+                        socket.emit('state', ['07', '02', '0'+ valorLuz2] );
+                        console.log('Novo valor LuzSala '+ valorLuz2);
+                    }
                 }
 
                 //mudar a posição da cortina
                 function mudarValorCortina() {
                     var valorCortina = document.getElementById('posCortina').value;
+                    if(valorCortina > 0 && valorCortina < 100)
+                    {
+                        socket.emit('state', ['07', '01', '00' + valorCortina] );
+                        console.log('Novo valor da luz '+ valorCortina);
+                    }
+                    else
+                    {
                     socket.emit('state', ['07', '01', '0' + valorCortina]);
-                    console.log('Novo valor PWM ' + valorCortina);
-                    console.log(valorCortina);
+                    console.log('Novo valor da luz ' + valorCortina);
+                    }
                 }
             </script>
 
