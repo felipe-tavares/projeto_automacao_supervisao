@@ -47,6 +47,7 @@
 #define AIN4  A3
 #define TAM  100
 
+int tempac=0;
 extern float temperatura;
 
 extern void Le_temperatura();
@@ -306,7 +307,12 @@ if (Serial.available() > 0)
               Serial.print("Escrita na Saida Analogica ");
               Serial.println(aon-ANALOG_OUTPUT_OFFSET);
               Serial.print("Valor: ");
+              
+              if(aon-ANALOG_OUTPUT_OFFSET==3){
+                tempac=value;
+                }
               Serial.println(value);
+               Serial.println(tempac);
 
               // escreve na saída
               analogWrite(aon, value);
