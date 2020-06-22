@@ -18,6 +18,12 @@
         <script DEFER="DEFER">
             var socket = io();
 
+            var lamp1 = function LerLampada1()
+            { 
+                socket.emit('state', ['06', '01', '0000'] );
+				console.log('Lendo entrada digital '+ x);
+            }
+
             socket.on('retorno', function([id, operacao, estado]){ 
                 console.log("id: ", id, " operacao: ", operacao, " estado: ", estado[0]+estado[1]+estado[2]+estado[3]);
                 if(operacao == 1){
@@ -32,13 +38,7 @@
                 
             });
 
-            function LeStatusPorta()
-            {   
-                socket.emit('state', ['01', '0'+ x, '0000'] );
-                console.log('Lendo saida digital '+ x);
-            }
-
-            LeStatusPorta();
+            LerLampada1();
         </script>
     </head>
 
@@ -86,7 +86,7 @@
     
                                     <form class="form-inline">
                                         <label class="h5 ml-2 mr-2">Desligada</label>
-                                        <input type="range" id="statuslumLampQuarto" min="0" max="100" disabled>
+                                        <input type="range" id="statuslumLampQuarto" min="0" max="255" disabled>
                                         <label class="h5 ml-2">Brilho Máximo</label>
                                     </form>
 
@@ -156,6 +156,7 @@
 
             </div>
         </section>
+
     </body>
 
     
