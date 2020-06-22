@@ -43,7 +43,7 @@
                                     <button type="submit" class="btn btn-sm btn-success ml-2" onclick="">Abrir</button>
                                 </form>
                                 <form>
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="">Cancelar Alarme</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="desligaSirene()">Cancelar Alarme</button>
                                 </form>
                             </div>
 
@@ -119,6 +119,12 @@
             <script>
                 var socket = io();
 
+                function desligaSirene()
+                {
+                    alert("Alarme Desligado!");
+                    socket.emit('state', ['05', '03', '0000'] );
+                    console.log('Desligando alarme');
+                }
 
                 function mudarTempAr() 
                 {
@@ -140,7 +146,7 @@
                         console.log('Novo valor LuzQuarto '+ tempAc);
                     }
                 }
-                
+
                 //mudar a intensidade da luz do quarto e banheiro
                 function mudarValorLuz1() {
                     var valorLuz1 = document.getElementById('lumLampQuarto').value;
