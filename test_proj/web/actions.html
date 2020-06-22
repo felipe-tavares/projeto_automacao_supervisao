@@ -17,13 +17,12 @@
 
     <body>
 
-        <header id="header">
+        <header id="header" class="header">
             <div class="inner">
-                <a href="./actions" class="logo">
-                    <strong>Ações</strong>
+                <a href="./actions" class="logo"><strong class="text-uppercase"><center>Ações</center></strong>
                     <nav id="nav">
-                        <a href="./">Home</a>
-                        <a href="./monitor">Monitoramento</a>
+                        <a href="./" class="mr-4">Home</a>
+                        <a href="./monitor" class="mr-4">Monitoramento</a>
                         <a href="./config">Configurações</a>
                     </nav>
                 </div>
@@ -39,7 +38,7 @@
                                 <label class="h3 font-weight-bold">Entrada Principal</label>
                                 <form class="form-inline">
                                     <label for="pwporta" class="h5 font-weight-bold ml-2">Abertura Remota</label>
-                                    <input type="password" class="form-control-plaintext" id="pwporta" placeholder="PASSWORD">
+                                    <input type="password" class="col-md-4 ml-2 form-control-plaintext" id="pwporta" placeholder="PASSWORD">
                                     <button type="submit" class="btn btn-sm btn-success ml-2" onclick="">Abrir</button>
                                 </form>
                                 <form>
@@ -74,7 +73,7 @@
                                 <label class="h3 font-weight-bold">Sala de estar</label>
                                 <form class="form-inline ml-2">
                                     <label for="manualtmpAC" class="h5 font-weight-bold">Temperatura do AC</label>
-                                    <input type="text" class="form-control-plaintext" id="manualtmpAC" placeholder="00">
+                                    <input type="text" class="col-md-2 ml-2 form-control-plaintext" id="manualtmpAC" placeholder="00">
                                     <button type="button" class="btn btn-sm btn-primary ml-2" onclick="mudarTempAr()">Confirmar</button>
                                 </form>
 
