@@ -35,7 +35,7 @@
 #define AIN1 A0
 #define AIN2 A1
 #define AIN3 A2
-#define AIN4 A3
+
 
 /* mapeamento da saída analógica */
 #define ANALOG_OUTPUT_OFFSET 8
@@ -44,7 +44,7 @@
 #define AON3 11
 #define AON4 12
 
-#define LM35  A10
+#define AIN4  A3
 #define TAM  100
 
 extern float temperatura;
@@ -61,7 +61,7 @@ void Le_temperatura()
   aux = 0;
   for (i = 0; i < TAM; i++)
   {
-    vet_temperatura[i] = (float(analogRead(LM35)) * 5 / (1023)) / 0.01;
+    vet_temperatura[i] = (float(analogRead(AIN4)) * 5 / (1023)) / 0.01;
     aux += vet_temperatura[i];
   }
   aux = (aux / TAM);
@@ -251,6 +251,29 @@ if (Serial.available() > 0)
               Serial.println(ain+1);
 
               // executao comando
+              if(ain==3){
+                Le_temperatura();
+                
+                 uint16_t value = temperatura;
+              
+              // int para string
+              char buf[5];
+              sprintf(buf,"%04d", value);
+
+              // monta valor de retonro
+              msg[7]=buf[0];
+              msg[8]=buf[1];
+              msg[9]=buf[2];
+              msg[10]=buf[3];
+              
+              // Responde para o mestre
+              Serial.print("Resposta do Escravo: ");
+              Serial.println(msg);
+            //default:
+            
+                }
+                
+                else{
               uint16_t value = analogRead(ain);
               
               // int para string
@@ -267,7 +290,9 @@ if (Serial.available() > 0)
               Serial.print("Resposta do Escravo: ");
               Serial.println(msg);
             //default:
-              break;
+              
+                }
+                break;
             }
 
             case WRITE_ANALOG:
