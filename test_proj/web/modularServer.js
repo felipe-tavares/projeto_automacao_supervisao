@@ -7,6 +7,26 @@ var fs = require('fs');
 // porta
 const port = 3000
 
+/*const interval = setInterval(() => {
+	// Pega o horário atual
+	const now = new Date();
+
+	// Formata a hora (hh:mm:ss)
+	const dataHora = zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
+	console.log(dataHora); //hora mostrada no terminal
+	Hora = dataHora;
+
+	if(Hora == windop){
+		//envia comando ao firmware para abrir janelas
+		
+	}else if(Hora == windhalf){
+		//envia comando ao firmware para deixar janelas meio abertas
+		
+	}else if(Hora == windclose){
+		//envia comando ao firmware para fechar janelas
+	}
+}, 1000);//a cada segundo... */
+
 // servidor ouvindo em 'port'
 var app = http.createServer(function (req, res) {
 
@@ -94,3 +114,10 @@ function define_estado(data) {
     return [data[27], data[25], 'Desligado'];
   }
 }
+
+/*atualizaMonitor(function() {
+  flag = flag + incremento;
+  console.log('Enviando valor de flag: ' + flag);
+  console.log('Valor atual do incremento: ' + incremento);
+  socket.emit('atualizaFlag', flag);
+  }, 1000)*/
