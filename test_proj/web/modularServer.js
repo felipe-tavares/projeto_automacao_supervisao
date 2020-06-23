@@ -143,28 +143,26 @@ sPort.open(function (err) {
 
 parser.on('data', (data) => {
   var new_data = data.split('');
-  console.log(data);
+  //console.log('TO AQUII' + data);
+  console.log('new data    ' + new_data);
   if (new_data[21] == ':') {
-    if ((new_data[24] == '0') && (new_data[25] == '1')) {
-      socket.emit('retorno', define_estado(new_data));
+    if ((new_data[24] == '0') && (new_data[25] == '2') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
+      socket.emit('retorno', [ 1, 'ABERTA']);
     }
-    if ((new_data[24] == '0') && (new_data[25] == '2')) {
-      socket.emit('retorno', define_estado(new_data));
-    }
-    if ((new_data[24] == '0') && (new_data[25] == '6')) {
-      socket.emit('retorno', [new_data[27], new_data[25], [new_data[28], new_data[29], new_data[30], new_data[31]]]);
+    if ((new_data[24] == '0') && (new_data[25] == '2') && (new_data[28] == '0') && (new_data[29] == '0')) {
+      socket.emit('retorno', [ 1, 'FECHADA']);
     }
   }
 })
 
-function define_estado(data) {
+/*function define_estado(data) {
   if ((data[28] && data[29]) == 'F') {
-    return [data[27], data[25], 'Ligado'];
+    return [data[27], data[25], 'Porta Aberta'];
   }
   if ((data[28] && data[29]) == '0') {
-    return [data[27], data[25], 'Desligado'];
+    return [data[27], data[25], 'Porta Fechada'];
   }
-}
+}*/
 
 /*atualizaMonitor(function() {
   flag = flag + incremento;

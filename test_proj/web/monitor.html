@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <meta http-equiv="refresh" content="1;url=./monitor"> <!--Atualiza a página a cada 1 segundo-->
+        <!--<meta http-equiv="refresh" content="1;url=./monitor">--> <!--Atualiza a página a cada 1 segundo-->
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"> </script>
@@ -14,10 +14,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" type="text/css" href="main.css" >
 
-        <script>src="/socket.io/socket.io.js"</script>
-        <script DEFER="DEFER">
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script>
             var socket = io();
 
+            socket.on('retorno', function([op,estado]){ 
+                if(op == 1){
+                    document.getElementById("statusporta").value = estado;
+                }
+                
+            });
+
+            function lerstatusporta()
+            {         
+                socket.emit('state', ['02', '02', '0000'] );
+                console.log('Lendo status porta');
+            }
+
+            function att() {
+                lerstatusporta();
+            }
+
+            setInterval(att, 10000);
         </script>
     </head>
 
@@ -109,7 +128,7 @@
 
                                             <form class="form-inline">
                                                 <label class="h5 ml-2 mr-2">Fechada</label>
-                                                <input type="range" id="statusposCortina" min="0" max="100" disabled>
+                                                <input type="range" id="statusposCortina" min="0" max="1024" disabled>
                                                 <label class="h5 ml-2">Aberta</label>
                                             </form>
                                        
