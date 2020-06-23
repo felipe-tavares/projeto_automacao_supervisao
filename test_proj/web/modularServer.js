@@ -141,32 +141,23 @@ sPort.open(function (err) {
   console.log('Porta Serial Aberta')
 })
 
+//esse aqui atualiza o monitor
 parser.on('data', (data) => {
   var new_data = data.split('');
-  //console.log('TO AQUII' + data);
-  console.log('new data    ' + new_data);
+  console.log(data);
+  //console.log('new data    ' + new_data);
   if (new_data[21] == ':') {
-    if ((new_data[24] == '0') && (new_data[25] == '2') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
+    if ((new_data[26] == '0') && (new_data[27] == '2') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
       socket.emit('retorno', [ 1, 'ABERTA']);
     }
-    if ((new_data[24] == '0') && (new_data[25] == '2') && (new_data[28] == '0') && (new_data[29] == '0')) {
+    if ((new_data[26] == '0') && (new_data[27] == '2') && (new_data[28] == '0') && (new_data[29] == '0')) {
       socket.emit('retorno', [ 1, 'FECHADA']);
+    }
+    if ((new_data[26] == '0') && (new_data[27] == '3') && (new_data[28] == '0') && (new_data[29] == '0')) {
+      socket.emit('retorno', [ 2, 'DESLIGADO']);
+    }
+    if ((new_data[26] == '0') && (new_data[27] == '3') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
+      socket.emit('retorno', [ 2, 'LIGADO']);
     }
   }
 })
-
-/*function define_estado(data) {
-  if ((data[28] && data[29]) == 'F') {
-    return [data[27], data[25], 'Porta Aberta'];
-  }
-  if ((data[28] && data[29]) == '0') {
-    return [data[27], data[25], 'Porta Fechada'];
-  }
-}*/
-
-/*atualizaMonitor(function() {
-  flag = flag + incremento;
-  console.log('Enviando valor de flag: ' + flag);
-  console.log('Valor atual do incremento: ' + incremento);
-  socket.emit('atualizaFlag', flag);
-  }, 1000)*/

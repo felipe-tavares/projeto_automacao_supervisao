@@ -20,8 +20,12 @@
             var socket = io();
 
             socket.on('retorno', function([op,estado]){ 
+                console.log(op);
                 if(op == 1){
                     document.getElementById("statusporta").value = estado;
+                }
+                else if(op == 2){
+                    document.getElementById("statusalarme").value = estado;
                 }
                 
             });
@@ -32,8 +36,15 @@
                 console.log('Lendo status porta');
             }
 
+            function lerstatussirene()
+            {         
+                socket.emit('state', ['02', '03', '0000'] );
+                console.log('Lendo status sirene');
+            }
+
             function att() {
                 lerstatusporta();
+                lerstatussirene();
             }
 
             setInterval(att, 10000);
@@ -67,8 +78,8 @@
                                         <input type="text" class="col-md-4 ml-2" class="form-control-plaintext" id="statusporta" disabled>
                                 </form>
                                 <form class="form-inline">
-                                    <label for="statusporta" class="h5 font-weight-bold ml-2">Alarme</label>
-                                    <input type="text" class="col-md-4 ml-2" class="form-control-plaintext" id="statusporta" disabled>
+                                    <label for="statusalarme" class="h5 font-weight-bold ml-2">Alarme</label>
+                                    <input type="text" class="col-md-4 ml-2" class="form-control-plaintext" id="statusalarme" disabled>
                                 </form>
                             </div>
 
