@@ -123,7 +123,7 @@ socket.on('connection', function (client) {
 /*****   Porta Serial *****/
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const sPort = new SerialPort('COM5', { baudRate: 9600 })
+const sPort = new SerialPort('COM6', { baudRate: 9600 })
 const parser = new Readline();
 
 sPort.pipe(parser);

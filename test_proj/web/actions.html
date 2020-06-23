@@ -244,37 +244,61 @@
                 }
 
                 //mudar a posição da cortina
-                function mudarValorCortina() {
-                    var valorCortina = document.getElementById('posCortina').value;
+                function mudarValorCortinaEstar() {
+                    var valorCortina = document.getElementById('posCortinaEstar').value;
                     if (valorCortina == 0)
                     {
                         socket.emit('state', ['07', '06', '00' + '00'] );
-                        socket.emit('state', ['07', '07', '00' + '00'] );
-                        console.log('Novo valor cortina '+ valorCortina);
+                        console.log('Novo valor cortina estar'+ valorCortina);
                     }
                     else if (valorCortina < 10 && valorCortina > 0) 
                     {
                         socket.emit('state', ['07', '06', '000'+ valorCortina]);
-                        socket.emit('state', ['07', '07', '000'+ valorCortina]);
-                        console.log('Novo valor cortina '+ valorCortina);
+                        console.log('Novo valor cortina estar'+ valorCortina);
                     }
                     else if(valorCortina < 100 && valorCortina > 10)
                     {
                         socket.emit('state', ['07', '06', '00'+ valorCortina]);
-                        socket.emit('state', ['07', '07', '00'+ valorCortina]);                       
-                        console.log('Novo valor cortina '+ valorCortina);
+                        console.log('Novo valor cortina estar'+ valorCortina);
                     }
                     else if(valorCortina < 1000 && valorCortina > 100)
                     {
                         socket.emit('state', ['07', '06', '0'+ valorCortina]);
-                        socket.emit('state', ['07', '07', '0'+ valorCortina]);
-                        console.log('Novo valor cortina '+ valorCortina);
+                        console.log('Novo valor cortina estar'+ valorCortina);
                     }
                     else
                     {
                         socket.emit('state', ['07', '06', valorCortina] );
+                        console.log('Novo valor cortina estar'+ valorCortina);
+                    }
+                }
+
+                function mudarValorCortinaJantar() {
+                    var valorCortina = document.getElementById('posCortinaJantar').value;
+                    if (valorCortina == 0)
+                    {
+                        socket.emit('state', ['07', '07', '00' + '00'] );
+                        console.log('Novo valor cortina jantar'+ valorCortina);
+                    }
+                    else if (valorCortina < 10 && valorCortina > 0) 
+                    {
+                        socket.emit('state', ['07', '07', '000'+ valorCortina]);
+                        console.log('Novo valor cortina jantar'+ valorCortina);
+                    }
+                    else if(valorCortina < 100 && valorCortina > 10)
+                    {
+                        socket.emit('state', ['07', '07', '00'+ valorCortina]);
+                        console.log('Novo valor cortina jantar'+ valorCortina);
+                    }
+                    else if(valorCortina < 1000 && valorCortina > 100)
+                    {
+                        socket.emit('state', ['07', '07', '0'+ valorCortina]);
+                        console.log('Novo valor cortina jantar'+ valorCortina);
+                    }
+                    else
+                    {
                         socket.emit('state', ['07', '07', valorCortina] );
-                        console.log('Novo valor cortina '+ valorCortina);
+                        console.log('Novo valor cortina jantar'+ valorCortina);
                     }
                 }
             </script>
