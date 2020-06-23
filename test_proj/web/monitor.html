@@ -19,7 +19,7 @@
             var socket = io();
 
             var lamp1 = function LerLampada1()
-            { 
+            {
                 socket.emit('state', ['06', '01', '0000'] );
 				console.log('Lendo entrada digital '+ x);
             }

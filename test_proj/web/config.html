@@ -11,6 +11,8 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="/socket.io/socket.io.js"></script>
+
     </head>
 
     <body>
@@ -131,6 +133,7 @@
             </section>
 
             <script>
+                var socket = io();
 
                 //salvar as variaveis
                 function salvarPortaSerial() {
@@ -155,43 +158,80 @@
                     var senha = document.getElementById("pwporta").value;
                     alert("Configurado com sucesso!");
                     console.log(senha);
+                    localStorage.setItem("senha", senha);
                 }
 
                 function salvarCloseTime() {
                     var closeTimeOut = document.getElementById("closetimout").value;
                     alert("Configurado com sucesso!");
                     console.log(closeTimeOut);
+                    //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
                 function salvarTemperaturaAC() {
-                    var temperaturaAC = document.getElementById("tmpAC").value;
+                    var TempAc = document.getElementById('tmpAC').value;
                     alert("Configurado com sucesso!");
-                    console.log(temperaturaAC);
+                    if (TempAc == 0)
+                    {
+                        socket.emit('state', ['07', '05', '00' + '00'] );
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
+                    }
+                    else if (TempAc < 10 && TempAc > 0) 
+                    {
+                        socket.emit('state', ['07', '05', '000'+ TempAc] );
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
+                    }
+                    else if(TempAc < 100 && TempAc > 10)
+                    {
+                        socket.emit('state', ['07', '05', '00'+ TempAc] );
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
+                    }
+                    localStorage.setItem("TempAc", TempAc);
                 }
 
                 function salvarMetadeAbertura() {
                     var metadeAbertura = document.getElementById("hs1Cortinas").value;
                     alert("Configurado com sucesso!");
                     console.log(metadeAbertura);
+                    //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
                 function salvarTotalAbertura() {
                     var totalAbertura = document.getElementById("hs2Cortinas").value;
                     alert("Configurado com sucesso!");
                     console.log(totalAbertura);
+                    //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
                 function salvarFechamentoTotal() {
                     var fechamentoTotal = document.getElementById("hs3Cortinas").value;
                     alert("Configurado com sucesso!");
                     console.log(fechamentoTotal);
+                    //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
                 function salvarBandaMorta() {
                     var bandaMorta = document.getElementById("valorBandaMorta").value;
                     alert("Configurado com sucesso!");
+                    if (bandaMorta == 0)
+                    {
+                        socket.emit('state', ['07', '04', '00' + '00'] );
+                        console.log('Novo valor Banda Morta'+ bandaMorta);
+                    }
+                    else if (bandaMorta < 10 && bandaMorta > 0) 
+                    {
+                        socket.emit('state', ['07', '04', '000'+ bandaMorta] );
+                        console.log('Novo valor Banda Morta'+ bandaMorta);
+                    }
+                    else if(bandaMorta < 100 && bandaMorta > 10)
+                    {
+                        socket.emit('state', ['07', '04', '00'+ bandaMorta] );
+                        console.log('Novo valor Banda Morta'+ bandaMorta);
+                    }
                     console.log(bandaMorta);
+                    //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
+
 
             </script>
 

@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/config.js"></script>
 
     </head>
 
@@ -39,7 +40,7 @@
                                 <form class="form-inline">
                                     <label for="pwporta" class="h5 font-weight-bold ml-2">Abertura Remota</label>
                                     <input type="password" class="col-md-4 ml-2 form-control-plaintext" id="pwporta" placeholder="PASSWORD">
-                                    <button type="submit" class="btn btn-sm btn-success ml-2" onclick="">Abrir</button>
+                                    <button type="button" class="btn btn-sm btn-success ml-2" onclick="porta()">Abrir</button>
                                 </form>
                                 <form>
                                     <button type="button" class="btn btn-sm btn-danger" onclick="desligaSirene()">Cancelar Alarme</button>
@@ -101,7 +102,7 @@
 
                                 <form class="form-inline">
                                     <label class="h5 ml-2 mr-2">Fechada</label>
-                                    <input type="range" id="posCortina" min="0" max="255" onchange="mudarValorCortina()">
+                                    <input type="range" id="posCortina" min="0" max="1024" onchange="mudarValorCortina()">
                                     <label class="h5 ml-2">Aberta</label>
                                 </form>
 
@@ -117,32 +118,51 @@
 
             <script>
                 var socket = io();
+                
+                TempAc = localStorage.getItem("TempAc");
+                senha = localStorage.getItem("senha");
+
+                function porta()
+                {
+                    var senhaCompara = document.getElementById('pwporta').value;
+                    if(senha == senhaCompara)
+                    {
+                        alert("Senha correta, abrindo porta!");
+                        socket.emit('state', ['05', '02', 'FF00'] );
+                    }
+                    else
+                    {
+                        alert("Senha errada!");
+                        socket.emit('state', ['05', '02', '0000'] );
+                    }
+                }
 
                 function desligaSirene()
                 {
                     alert("Alarme Desligado!");
                     socket.emit('state', ['05', '03', '0000'] );
-                    console.log('Desligando alarme');
+
+                    console.log(TempAc);
                 }
 
                 function mudarTempAr() 
                 {
-                    var tempAc = document.getElementById('manualtmpAC').value;
+                    var TempAc = document.getElementById('manualtmpAC').value;
                     alert("Configurado com sucesso!");
-                    if (tempAc == 0)
+                    if (TempAc == 0)
                     {
                         socket.emit('state', ['07', '03', '00' + '00'] );
-                        console.log('Novo valor LuzQuarto '+ tempAc);
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
                     }
-                    else if (tempAc < 10 && tempAc > 0) 
+                    else if (TempAc < 10 && TempAc > 0) 
                     {
-                        socket.emit('state', ['07', '03', '000'+ tempAc] );
-                        console.log('Novo valor LuzQuarto '+ tempAc);
+                        socket.emit('state', ['07', '03', '000'+ TempAc] );
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
                     }
-                    else if(tempAc < 100 && tempAc > 10)
+                    else if(TempAc < 100 && TempAc > 10)
                     {
-                        socket.emit('state', ['07', '03', '00'+ tempAc] );
-                        console.log('Novo valor LuzQuarto '+ tempAc);
+                        socket.emit('state', ['07', '03', '00'+ TempAc] );
+                        console.log('Novo valor Ar Condicionado '+ TempAc);
                     }
                 }
 
@@ -201,15 +221,35 @@
                 //mudar a posição da cortina
                 function mudarValorCortina() {
                     var valorCortina = document.getElementById('posCortina').value;
-                    if(valorCortina > 0 && valorCortina < 100)
+                                        if (valorLuz2 == 0)
                     {
-                        socket.emit('state', ['07', '01', '00' + valorCortina] );
-                        console.log('Novo valor da luz '+ valorCortina);
+                        socket.emit('state', ['07', '02', '00' + '00'] );
+                        socket.emit('state', ['07', '02', '00' + '00'] );
+                        console.log('Novo valor LuzSala '+ valorCortina);
+                    }
+                    else if (valorCortina < 10 && valorCortina > 0) 
+                    {
+                        socket.emit('state', ['07', '02', '000'+ valorCortina]);
+                        socket.emit('state', ['07', '02', '000'+ valorCortina]);
+                        console.log('Novo valor LuzSala '+ valorCortina);
+                    }
+                    else if(valorCortina < 100 && valorCortina > 10)
+                    {
+                        socket.emit('state', ['07', '02', '00'+ valorCortina]);
+                        socket.emit('state', ['07', '02', '00'+ valorCortina]);                       
+                        console.log('Novo valor LuzSala '+ valorCortina);
+                    }
+                    else if(valorCortina < 1000 && valorCortina > 100)
+                    {
+                        socket.emit('state', ['07', '02', '0'+ valorCortina]);
+                        socket.emit('state', ['07', '02', '0'+ valorCortina]);
+                        console.log('Novo valor LuzSala '+ valorCortina);
                     }
                     else
                     {
-                    socket.emit('state', ['07', '01', '0' + valorCortina]);
-                    console.log('Novo valor da luz ' + valorCortina);
+                        socket.emit('state', ['07', '02', valorCortina] );
+                        socket.emit('state', ['07', '02', valorCortina] );
+                        console.log('Novo valor LuzSala '+ valorCortina);
                     }
                 }
             </script>
