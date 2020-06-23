@@ -63,6 +63,22 @@
                                         <label class="h5 ml-2">Brilho Máximo</label>
                                     </form>
 
+                                    <form class="row">
+                                        <label class="h5 font-weight-bold ml-4">
+                                            <u>Janelas do quarto</u>
+                                        </label>
+                                    </form>
+
+                                    <form class="row">
+                                        <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
+                                    </form>
+
+                                    <form class="form-inline">
+                                        <label class="h5 ml-2 mr-2">Fechada</label>
+                                        <input type="range" id="posCortinaQuarto" min="0" max="255" onchange="mudarValorCortinaQuarto()">
+                                        <label class="h5 ml-2">Aberta</label>
+                                    </form>
+
                                 </div>
 
                             </div>
@@ -97,12 +113,22 @@
                                 </form>
 
                                 <form class="row">
-                                    <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
+                                    <label class="h5 font-weight-bold ml-4">Posição da cortina da sala de estar</label>
                                 </form>
 
                                 <form class="form-inline">
                                     <label class="h5 ml-2 mr-2">Fechada</label>
-                                    <input type="range" id="posCortina" min="0" max="1024" onchange="mudarValorCortina()">
+                                    <input type="range" id="posCortinaEstar" min="0" max="1024" onchange="mudarValorCortinaEstar()">
+                                    <label class="h5 ml-2">Aberta</label>
+                                </form>
+
+                                <form class="row">
+                                    <label class="h5 font-weight-bold ml-4">Posição da cortina da sala de jantar</label>
+                                </form>
+
+                                <form class="form-inline">
+                                    <label class="h5 ml-2 mr-2">Fechada</label>
+                                    <input type="range" id="posCortinaJantar" min="0" max="1024" onchange="mudarValorCortinaJantar()">
                                     <label class="h5 ml-2">Aberta</label>
                                 </form>
 
