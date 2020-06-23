@@ -43,10 +43,10 @@
     <body>
         <header id="header">
             <div class="inner">
-                <a href="./monitor" class="logo"><strong>Monitoramento</strong>
+                <a href="./monitor" class="logo"><strong class="text-uppercase"><center>Monitoramento</center></strong>
                 <nav id="nav">
-					<a href="./">Home</a>
-                    <a href="./actions">Ações</a>
+					<a href="./" class="mr-4">Home</a>
+                    <a href="./actions" class="mr-4">Ações</a>
                     <a href="./config">Configurações</a>
 				</nav>
             </div>
@@ -123,12 +123,22 @@
                                         </form>
 
                                             <form class="row">
-                                                <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
+                                                <label class="h5 font-weight-bold ml-4">Posição da cortina da sala de estar</label>
                                             </form>
 
                                             <form class="form-inline">
                                                 <label class="h5 ml-2 mr-2">Fechada</label>
-                                                <input type="range" id="statusposCortina" min="0" max="1024" disabled>
+                                                <input type="range" id="statusposCortinaEstar" min="0" max="1024" disabled>
+                                                <label class="h5 ml-2">Aberta</label>
+                                            </form>
+
+                                            <form class="row">
+                                                <label class="h5 font-weight-bold ml-4">Posição da cortina da sala de jantar</label>
+                                            </form>
+
+                                            <form class="form-inline">
+                                                <label class="h5 ml-2 mr-2">Fechada</label>
+                                                <input type="range" id="statusposCortinaJantar" min="0" max="1024" disabled>
                                                 <label class="h5 ml-2">Aberta</label>
                                             </form>
                                        
