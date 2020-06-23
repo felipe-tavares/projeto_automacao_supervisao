@@ -7,25 +7,57 @@ var fs = require('fs');
 // porta
 const port = 3000
 
-/*const interval = setInterval(() => {
-	// Pega o horário atual
-	const now = new Date();
 
-	// Formata a hora (hh:mm:ss)
-	const dataHora = zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
-	console.log(dataHora); //hora mostrada no terminal
-	Hora = dataHora;
+//variaveis com valores padrao pra pode starta
+var totalAbertura = '07:00'; //abre totalmente
+var metadeAbertura = '1:44'; //meio abertas
+var fechamentoTotal = '20:00'; //fecha totalmente
+var closeTimeOut = '00:01';
 
-	if(Hora == windop){
-		//envia comando ao firmware para abrir janelas
+const janelasAbreFecha = setInterval(() => {
+	// cria o objeto hora
+	const hora = new Date();
+
+	// pega somente hora e minuto
+  const horaAgora = hora.getHours() + ':' +  hora.getMinutes();
+  
+  compara = horaAgora;
+
+	//console.log(compara); //hora mostrada no terminal
+  //console.log(metadeAbertura); //hora mostrada no terminal
+  //console.log(totalAbertura); //hora mostrada no terminal
+  //console.log(fechamentoTotal); //hora mostrada no terminal
+
+  if(horaAgora == metadeAbertura) {
+    //manda o arduino deixar meio aberto
+    var msg1 = ':' + slaveAdr + '07060512';
+    //var msg2 = ':' + slaveAdr + '07070512';
+    sPort.write(msg1);
+    console.log(msg1);
+    //sPort.write(msg2);
+    //console.log(msg2);
 		
-	}else if(Hora == windhalf){
-		//envia comando ao firmware para deixar janelas meio abertas
-		
-	}else if(Hora == windclose){
-		//envia comando ao firmware para fechar janelas
+	} else if(horaAgora == totalAbertura) {
+    //manda o arduino abrir completamente as janela
+    var msg1 = ':' + slaveAdr + '07061024';
+    var msg2 = ':' + slaveAdr + '07071024';
+    sPort.write(msg1);
+    console.log(msg1);
+    sPort.write(msg2);
+    console.log(msg2);
+
+	} else if(horaAgora == fechamentoTotal) {
+    //manda o arduino fecha as janela
+    var msg1 = ':' + slaveAdr + '07060000';
+    var msg2 = ':' + slaveAdr + '07070000';
+    sPort.write(msg1);
+    console.log(msg1);
+    sPort.write(msg2);
+    console.log(msg2);
+
 	}
-}, 1000);//a cada segundo... */
+}, 60000); //faz isso a cada minuto
+
 
 // servidor ouvindo em 'port'
 var app = http.createServer(function (req, res) {
@@ -66,6 +98,25 @@ socket.on('connection', function (client) {
     mensagem = ':' + slaveAdr + slaveCmd + slaveOut + slaveState
     sPort.write(mensagem)
     console.log(mensagem)
+  })
+
+  //importando as variaveis da pag config
+  client.on('Janelas', function (data) {
+    console.log('Variaveis hora da pag config:' + data);
+    metadeAbertura = data[0];
+    totalAbertura = data[1];
+    fechamentoTotal = data[2];
+    console.log('Hora de total abertura = ' 
+    + metadeAbertura + ', Meia abertura = ' 
+    + totalAbertura + ', Fechamento total = ' 
+    + fechamentoTotal + ' Estão no servidor');
+})
+
+  client.on('Alarme', function (data) {
+    console.log('Variaveis hora da pag config:' + data);
+    closeTimeOut = data;
+    console.log('Tempo pra desparar o alarme = ' 
+    + closeTimeOut + ', Está no servidor '); 
   })
 })
 

@@ -155,7 +155,7 @@
                 }
 
                 function salvarSenha() {
-                    var senha = document.getElementById("pwporta").value;
+                    const senha = document.getElementById("pwporta").value;
                     alert("Configurado com sucesso!");
                     console.log(senha);
                     localStorage.setItem("senha", senha);
@@ -164,7 +164,8 @@
                 function salvarCloseTime() {
                     var closeTimeOut = document.getElementById("closetimout").value;
                     alert("Configurado com sucesso!");
-                    console.log(closeTimeOut);
+                    socket.emit('Alarme', closeTimeOut );
+                    console.log('Config Page: Enviando closeTimeOut: ' + closeTimeOut);
                     //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
@@ -186,29 +187,35 @@
                         socket.emit('state', ['07', '05', '00'+ TempAc] );
                         console.log('Novo valor Ar Condicionado '+ TempAc);
                     }
-                    localStorage.setItem("TempAc", TempAc);
                 }
 
                 function salvarMetadeAbertura() {
                     var metadeAbertura = document.getElementById("hs1Cortinas").value;
+                    var totalAbertura = document.getElementById("hs2Cortinas").value;
+                    var fechamentoTotal = document.getElementById("hs3Cortinas").value;
                     alert("Configurado com sucesso!");
-                    console.log(metadeAbertura);
-                    //localStorage.setItem("metadeAbertura", metadeAbertura);
+                    //envia as variaveis pro arq do servidor
+                    socket.emit('Janelas', [metadeAbertura, totalAbertura, fechamentoTotal] );
+                    console.log('Config Page: Enviando tempo metade Abertura ' +metadeAbertura+ 
+                    ', tempo Total Abertura ' +totalAbertura+ 
+                    ' tempo Fechado ' +fechamentoTotal);
                 }
 
-                function salvarTotalAbertura() {
+                /*var totalAbertura = function salvarTotalAbertura() {
                     var totalAbertura = document.getElementById("hs2Cortinas").value;
                     alert("Configurado com sucesso!");
                     console.log(totalAbertura);
-                    //localStorage.setItem("metadeAbertura", metadeAbertura);
+                    return totalAbertura;
+                    //socket.emit('Windows', [totalAbertura] );
                 }
 
-                function salvarFechamentoTotal() {
+                var fechamentoTotal = function salvarFechamentoTotal() {
                     var fechamentoTotal = document.getElementById("hs3Cortinas").value;
                     alert("Configurado com sucesso!");
                     console.log(fechamentoTotal);
-                    //localStorage.setItem("metadeAbertura", metadeAbertura);
-                }
+                    return fechamentoTotal;
+                    //socket.emit('Windows', [fechamentoTotal] );
+                }*/
 
                 function salvarBandaMorta() {
                     var bandaMorta = document.getElementById("valorBandaMorta").value;
@@ -231,7 +238,6 @@
                     console.log(bandaMorta);
                     //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
-
 
             </script>
 

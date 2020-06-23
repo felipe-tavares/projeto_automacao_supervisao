@@ -18,27 +18,6 @@
         <script DEFER="DEFER">
             var socket = io();
 
-            var lamp1 = function LerLampada1()
-            {
-                socket.emit('state', ['06', '01', '0000'] );
-				console.log('Lendo entrada digital '+ x);
-            }
-
-            socket.on('retorno', function([id, operacao, estado]){ 
-                console.log("id: ", id, " operacao: ", operacao, " estado: ", estado[0]+estado[1]+estado[2]+estado[3]);
-                if(operacao == 1){
-                    document.getElementById("saida"+ id).value = estado;
-                }
-                if(operacao == 2){
-                    document.getElementById("entrada"+ id).value = estado;
-                }
-                if(operacao == 6){
-                    document.getElementById("analogica"+ id).value = estado[0]+estado[1]+estado[2]+estado[3];
-                }
-                
-            });
-
-            LerLampada1();
         </script>
     </head>
 
