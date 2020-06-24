@@ -63,22 +63,6 @@
                                         <label class="h5 ml-2">Brilho Máximo</label>
                                     </form>
 
-                                    <form class="row">
-                                        <label class="h5 font-weight-bold ml-4">
-                                            <u>Janelas do quarto</u>
-                                        </label>
-                                    </form>
-
-                                    <form class="row">
-                                        <label class="h5 font-weight-bold ml-4">Posição da cortina</label>
-                                    </form>
-
-                                    <form class="form-inline">
-                                        <label class="h5 ml-2 mr-2">Fechada</label>
-                                        <input type="range" id="posCortinaQuarto" min="0" max="255" onchange="mudarValorCortinaQuarto()">
-                                        <label class="h5 ml-2">Aberta</label>
-                                    </form>
-
                                 </div>
 
                             </div>
@@ -166,8 +150,6 @@
                 {
                     alert("Alarme Desligado!");
                     socket.emit('state', ['05', '03', '0000'] );
-
-                    console.log(TempAc);
                 }
 
                 function mudarTempAr() 
@@ -194,6 +176,7 @@
                 //mudar a intensidade da luz do quarto e banheiro
                 function mudarValorLuz1() {
                     var valorLuz1 = document.getElementById('lumLampQuarto').value;
+                    localStorage.setItem("valorLuz1", valorLuz1);
 
                     if (valorLuz1 == 0)
                     {
@@ -221,6 +204,8 @@
                 //mudar a intensidade da luz da sala de estar
                 function mudarValorLuz2() {
                     var valorLuz2 = document.getElementById('lumLampSala').value;
+                    localStorage.setItem("valorLuz2", valorLuz2);
+
                     if (valorLuz2 == 0)
                     {
                         socket.emit('state', ['07', '02', '00' + '00'] );

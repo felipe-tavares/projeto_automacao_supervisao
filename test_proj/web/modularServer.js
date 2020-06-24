@@ -9,17 +9,20 @@ const port = 3000
 
 
 //variaveis com valores padrao pra pode starta
-var totalAbertura = '07:00'; //abre totalmente
-var metadeAbertura = '1:44'; //meio abertas
-var fechamentoTotal = '20:00'; //fecha totalmente
+var totalAbertura = '07:00:00'; //abre totalmente
+var metadeAbertura = '01:44:00'; //meio abertas
+var fechamentoTotal = '20:00:00'; //fecha totalmente
 var closeTimeOut = '00:01';
+var aux;
 
 const janelasAbreFecha = setInterval(() => {
 	// cria o objeto hora
 	const hora = new Date();
 
-	// pega somente hora e minuto
-  const horaAgora = hora.getHours() + ':' +  hora.getMinutes();
+  // pega somente hora e minuto
+  
+  var aux = hora.getHours();
+  const horaAgora = aux + ':' +  hora.getMinutes() + hora.getSeconds();
   
   compara = horaAgora;
 
@@ -145,27 +148,49 @@ sPort.open(function (err) {
 parser.on('data', (data) => {
   var new_data = data.split('');
   console.log(data);
-  console.log('new data    ' + new_data);
+  //console.log('new data    ' + new_data);
   if (new_data[21] == ':') {
+    // OP = 1 É PORTA
     if ((new_data[26] == '0') && (new_data[27] == '2') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
       socket.emit('retorno', [ 1, 'ABERTA']);
     }
     if ((new_data[26] == '0') && (new_data[27] == '2') && (new_data[28] == '0') && (new_data[29] == '0')) {
       socket.emit('retorno', [ 1, 'FECHADA']);
     }
+    // OP = 2 É JANELA
     if ((new_data[26] == '0') && (new_data[27] == '3') && (new_data[28] == '0') && (new_data[29] == '0')) {
       socket.emit('retorno', [ 2, 'DESLIGADO']);
     }
     if ((new_data[26] == '0') && (new_data[27] == '3') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
       socket.emit('retorno', [ 2, 'LIGADO']);
     }
+    // OP = 3 É TEMPERATURA DO BANHEIRO
     if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '4')) {
       var dado = new_data[30]+new_data[31];
       socket.emit('retorno', [ 3, dado]);
     }
+    // OP = 4 É VELOCIDADE DO AR
     if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '5')) {
       var dado = new_data[29]+new_data[30]+new_data[31];
       socket.emit('retorno', [ 4, dado]);
+    }
+    // OP = 5 É ALERTA VENTO FORTE
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '6') && (new_data[28] == '0') && (new_data[29] == '0')) {
+      socket.emit('retorno', [ 5, 'DESLIGADO']);
+    }
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '6') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
+      socket.emit('retorno', [ 5, 'LIGADO']);
+    }
+    // OP = 6 CORTINA SALA JANTAR
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '7')) {
+      var dado = new_data[28]+new_data[29]+new_data[30]+new_data[31];
+      socket.emit('retorno', [ 6, dado]);
+    }
+
+    // OP = 7 CORTINA SALA ESTAR
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '8')) {
+      var dado = new_data[28]+new_data[29]+new_data[30]+new_data[31];
+      socket.emit('retorno', [ 7, dado]);
     }
   }
 })

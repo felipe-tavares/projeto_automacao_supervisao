@@ -19,10 +19,44 @@
         <script>
             var socket = io();
 
-            socket.on('retorno', function([op,estado]){ 
+            const scale = (num, in_min, in_max, out_min, out_max) => {
+                return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+            }
+            
+            function lerlampquarto()
+            {   
+                //var valorLuz1 = localStorage.getItem("valorLuz1");
+                //var aux;
+                //aux = (scale(valorLuz1, 0, 255, 0, 100));
+                //aux = Math.trunc(aux);
+                //console.log(aux);
+                //document.getElementById("statusalarme").value = 1;
+                //document.getElementById("statusporta").value = '1';
+            }
+
+            lerlampquarto();
+
+
+
+            socket.on('retorno', function([op,estado]){
                 console.log(estado);
+                console.log(op);
+
                 if(op == 1){
                     document.getElementById("statusporta").value = estado;
+
+                    var valorLuz1 = localStorage.getItem("valorLuz1");
+                    valorLuz1 = (scale(valorLuz1, 0, 255, 0, 100));
+                    valorLuz1 = Math.trunc(valorLuz1);
+                    valorLuz1 = (valorLuz1 + '%');
+                    document.getElementById("statuslumLampQuarto").value = valorLuz1;
+
+                    var valorLuz2 = localStorage.getItem("valorLuz2");
+                    valorLuz2 = (scale(valorLuz2, 0, 255, 0, 100));
+                    valorLuz2 = Math.trunc(valorLuz2);
+                    valorLuz2 = (valorLuz2 + '%');
+                    document.getElementById("statuslumLampSala").value = valorLuz2;
+
                 }
                 else if(op == 2){
                     document.getElementById("statusalarme").value = estado;
@@ -34,6 +68,21 @@
                 else if(op == 4){
                     var valor = (estado+'Km/h')
                     document.getElementById("velocidadeVento").value = valor;
+                }
+                else if(op == 5){
+                    document.getElementById("alertaVento").value = estado;
+                }
+                else if(op == 6){
+                    estado = (scale(estado, 0, 1024, 0, 100));
+                    estado = Math.trunc(estado);
+                    estado = (estado + '%');
+                    document.getElementById("statusposCortinaJantar").value = estado;
+                }
+                else if(op == 7){
+                    estado = (scale(estado, 0, 1024, 0, 100));
+                    estado = Math.trunc(estado);
+                    estado = (estado + '%');
+                    document.getElementById("statusposCortinaEstar").value = estado;
                 }
             });
 
@@ -49,34 +98,50 @@
                 console.log('Lendo status sirene');
             }
 
-            function lervento()
-            {
-                socket.emit('state', ['06', '05', '0000'] );
-                console.log('Lendo velocidade do vento');
-            }
-
             function lertempbanheiro()
             {
-                socket.emit('state', ['06', '04', '0000'] );
-                console.log('Lendo temp banheiro');
-            }
-
-            function lervento()
-            {
-                socket.emit('state', ['06', '05', '0000'] );
                 console.log('Lendo velocidade do vento');
+                socket.emit('state', ['06', '04', '0000'] );
             }
 
+            function lervelocidadevento()
+            {
+                console.log('Lendo velocidade do vento');
+                socket.emit('state', ['06', '05', '0000'] );
+            }
 
+            function alertaVentoForte()
+            {
+                console.log('Lendo status vento forte');
+                socket.emit('state', ['06', '06', '0000'] );
+            }
 
+            function lercortinasalaJantar() 
+            {
+                console.log('Lendo status cortina Sala jantar');
+                socket.emit('state', ['06', '07', '0000'] );
+            }
+
+            function lercortinasalaEstar() 
+            {
+                console.log('Lendo status cortina Sala Estar');
+                socket.emit('state', ['06', '08', '0000'] );
+            }
+            
+            //lerlampsala();
+            //lercortinasalaJantar();
+            //lerstatusporta();
             function att () {
-                //setTimeout(lerstatusporta, 1);
-                //setTimeout(lerstatussirene, 2000);
-                //setTimeout(lertempbanheiro, 3000);
-                lervento();
+                setTimeout(lerstatusporta, 1000);
+                setTimeout(lerstatussirene, 3500);
+                setTimeout(lertempbanheiro, 6000);
+                setTimeout(lervelocidadevento, 8500);
+                setTimeout(alertaVentoForte, 10000);
+                setTimeout(lercortinasalaJantar, 12500);
+                setTimeout(lercortinasalaEstar, 14900);
             }
 
-            setInterval(att, 2000);
+            setInterval(att, 15000);
 
         </script>
     </head>
@@ -124,9 +189,7 @@
                                     </form>
     
                                     <form class="form-inline">
-                                        <label class="h5 ml-2 mr-2">Desligada</label>
-                                        <input type="range" id="statuslumLampQuarto" min="0" max="255" disabled>
-                                        <label class="h5 ml-2">Brilho Máximo</label>
+                                        <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="statuslumLampQuarto" disabled>
                                     </form>
 
                                     <form class="form-inline">
@@ -153,9 +216,8 @@
                                         </form>
 
                                         <form class="form-inline">
-                                            <label class="h5 ml-2 mr-2">Desligada</label>
-                                            <input type="range" id="statuslumLampSala" min="0" max="100" disabled>
-                                            <label class="h5 ml-2">Brilho Máximo</label>
+
+                                            <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="statuslumLampSala" disabled>
                                         </form>
 
 
@@ -169,7 +231,7 @@
 
                                             <form class="form-inline">
                                                 <label class="h5 ml-2 mr-2">Fechada</label>
-                                                <input type="range" id="statusposCortinaEstar" min="0" max="1024" disabled>
+                                            <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="statusposCortinaEstar" disabled>
                                                 <label class="h5 ml-2">Aberta</label>
                                             </form>
 
@@ -179,7 +241,7 @@
 
                                             <form class="form-inline">
                                                 <label class="h5 ml-2 mr-2">Fechada</label>
-                                                <input type="range" id="statusposCortinaJantar" min="0" max="1024" disabled>
+                                            <input type="text" class="col-md-3 ml-2" class="form-control-plaintext" id="statusposCortinaJantar" disabled>
                                                 <label class="h5 ml-2">Aberta</label>
                                             </form>
                                        
