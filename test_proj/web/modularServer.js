@@ -13,20 +13,17 @@ var totalAbertura = '7:00:00'; //abre totalmente
 var metadeAbertura = '1:44:00'; //meio abertas
 var fechamentoTotal = '20:00:00'; //fecha totalmente
 var closeTimeOut = '00:01';
-var aux;
 
+//função para comparar a hora e abrir ou fechar as cortinas na hora que o usuario configurou
 const janelasAbreFecha = setInterval(() => {
-	// cria o objeto hora
+  
+  // cria o objeto hora
 	const hora = new Date();
 
-  // pega somente hora e minuto
-  
-  var aux = hora.getHours();
+  //salva hora + min + seg
+  const horaAgora = hora.getHours() + ':' +  hora.getMinutes() + ':' + hora.getSeconds();
 
-  const horaAgora = aux + ':' +  hora.getMinutes() + ':' + hora.getSeconds();
-
-  console.log(horaAgora);
-
+  //console.log(horaAgora);
   //console.log(metadeAbertura); //hora mostrada no terminal
   //console.log(totalAbertura); //hora mostrada no terminal
   //console.log(fechamentoTotal); //hora mostrada no terminal
@@ -45,17 +42,15 @@ const janelasAbreFecha = setInterval(() => {
     sPort.write(msg1);
     console.log(msg1);
 
-
 	} else if(horaAgora == fechamentoTotal) {
     //manda o arduino fecha as janela
     var msg1 = ':' + slaveAdr + '07060000';
     var msg2 = ':' + slaveAdr + '07070000';
     sPort.write(msg1);
     console.log(msg1);
-
-
-	}
-}, 1000); //faz isso a cada minuto
+  }
+  
+}, 1000); //faz isso a cada segundo
 
 
 // servidor ouvindo em 'port'
@@ -89,6 +84,7 @@ var app = http.createServer(function (req, res) {
 var socket = require('socket.io').listen(app);
 
 socket.on('connection', function (client) {
+  //aqui monta as mensagens e envia para o firmware
   client.on('state', function (data) {
     console.log('Valor de tempo recebido do HTML:' + data);
     slaveCmd = data[0]
@@ -99,7 +95,7 @@ socket.on('connection', function (client) {
     console.log(mensagem)
   })
 
-  //importando as variaveis da pag config
+  //importando as variaveis da pag config para usar na função abreefecha
   client.on('Janelas', function (data) {
     console.log('Variaveis hora da pag config:' + data);
     metadeAbertura = data[0];
@@ -110,7 +106,8 @@ socket.on('connection', function (client) {
     + totalAbertura + ', Fechamento total = ' 
     + fechamentoTotal + ' Estão no servidor');
 })
-
+  
+  //salva o tempo do alarme pra disparar se a porta ficar aberta
   client.on('Alarme', function (data) {
     console.log('Variaveis hora da pag config:' + data);
     closeTimeOut = data;
@@ -140,7 +137,7 @@ sPort.open(function (err) {
   console.log('Porta Serial Aberta')
 })
 
-//esse aqui atualiza o monitor
+//filtra a mensagem recebida do firmware e envia para atualiza página monitor
 parser.on('data', (data) => {
   var new_data = data.split('');
   console.log(data);

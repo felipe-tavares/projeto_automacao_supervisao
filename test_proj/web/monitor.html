@@ -19,25 +19,12 @@
         <script>
             var socket = io();
 
+            //função como a map, transforma um range em outro 
             const scale = (num, in_min, in_max, out_min, out_max) => {
                 return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
             }
-            
-            function lerlampquarto()
-            {   
-                //var valorLuz1 = localStorage.getItem("valorLuz1");
-                //var aux;
-                //aux = (scale(valorLuz1, 0, 255, 0, 100));
-                //aux = Math.trunc(aux);
-                //console.log(aux);
-                //document.getElementById("statusalarme").value = 1;
-                //document.getElementById("statusporta").value = '1';
-            }
 
-            lerlampquarto();
-
-
-
+            //aqui recebe do servidor OP é para campo ele vai escrever na pagina e estado o dado que irá escrever
             socket.on('retorno', function([op,estado]){
                 console.log(estado);
                 console.log(op);
@@ -46,7 +33,9 @@
                     document.getElementById("statusporta").value = estado;
 
                     var valorLuz1 = localStorage.getItem("valorLuz1");
+                    //transforma o range 0 a 255 em 0 a 100
                     valorLuz1 = (scale(valorLuz1, 0, 255, 0, 100));
+                    //trunca o valor para um número inteiro
                     valorLuz1 = Math.trunc(valorLuz1);
                     valorLuz1 = (valorLuz1 + '%');
                     document.getElementById("statuslumLampQuarto").value = valorLuz1;
@@ -128,9 +117,7 @@
                 socket.emit('state', ['06', '08', '0000'] );
             }
             
-            //lerlampsala();
-            //lercortinasalaJantar();
-            //lerstatusporta();
+            //chama as função com um certo delay se não encavala tudo e o firmware se perde
             function att () {
                 setTimeout(lerstatusporta, 1000);
                 setTimeout(lerstatussirene, 3500);
