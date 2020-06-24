@@ -16,7 +16,7 @@
     + #### Diagrama esquemático do sistema:
     
     <p align="center">
-     <img width="840" height="620" src="schematic_diagram/schematic_diagram.png">
+     <img width="940" height="520" src="schematic_diagram/schematic_diagram.png">
      </p>
      
 + ## Descrição do controle
