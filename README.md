@@ -117,6 +117,8 @@
   + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/). Para o servidor foi utilizada a biblioteca         [Socket.IO](https://socket.io/).
   + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta **\.pio\build\uno**.
     
++ ## Vídeo demonstrativo
+  * https://youtu.be/M4reiNVYk3o
 
 + ## Autores
   * **Felipe Tavares** - [felipe-tavares](https://github.com/felipe-tavares)
