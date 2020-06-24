@@ -68,7 +68,16 @@
       <p align="center">
         <img width="740" height="420" src="pages/configs.PNG">
       </p>
+      
+     + Exemplo de configuração das cortinas: para setar o horário de abertura e fechamento das cortinas como:
+         + 11:00:00
+         + 07:10:56
+         + 12:00:03
+     + Utilizar os seguintes valores:
     
+      <p align="center">
+        <img width="440" height="420" src="images/WhatsApp Image 2020-06-24 at 15.45.29.jpeg">
+      </p>
     
     + **Página de Monitoração:** Mostra o estado atual dos sensores e
       atuadores presentes no projeto, é atualizada a cada 1 segundo.
