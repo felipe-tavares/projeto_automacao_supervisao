@@ -9,8 +9,8 @@ const port = 3000
 
 
 //variaveis com valores padrao pra pode starta
-var totalAbertura = '07:00:00'; //abre totalmente
-var metadeAbertura = '01:44:00'; //meio abertas
+var totalAbertura = '7:00:00'; //abre totalmente
+var metadeAbertura = '1:44:00'; //meio abertas
 var fechamentoTotal = '20:00:00'; //fecha totalmente
 var closeTimeOut = '00:01';
 var aux;
@@ -22,11 +22,11 @@ const janelasAbreFecha = setInterval(() => {
   // pega somente hora e minuto
   
   var aux = hora.getHours();
-  const horaAgora = aux + ':' +  hora.getMinutes() + hora.getSeconds();
-  
-  compara = horaAgora;
 
-	//console.log(compara); //hora mostrada no terminal
+  const horaAgora = aux + ':' +  hora.getMinutes() + ':' + hora.getSeconds();
+
+  console.log(horaAgora);
+
   //console.log(metadeAbertura); //hora mostrada no terminal
   //console.log(totalAbertura); //hora mostrada no terminal
   //console.log(fechamentoTotal); //hora mostrada no terminal
@@ -34,11 +34,9 @@ const janelasAbreFecha = setInterval(() => {
   if(horaAgora == metadeAbertura) {
     //manda o arduino deixar meio aberto
     var msg1 = ':' + slaveAdr + '07060512';
-    //var msg2 = ':' + slaveAdr + '07070512';
+    var msg2 = ':' + slaveAdr + '07070512';
     sPort.write(msg1);
     console.log(msg1);
-    //sPort.write(msg2);
-    //console.log(msg2);
 		
 	} else if(horaAgora == totalAbertura) {
     //manda o arduino abrir completamente as janela
@@ -46,8 +44,7 @@ const janelasAbreFecha = setInterval(() => {
     var msg2 = ':' + slaveAdr + '07071024';
     sPort.write(msg1);
     console.log(msg1);
-    sPort.write(msg2);
-    console.log(msg2);
+
 
 	} else if(horaAgora == fechamentoTotal) {
     //manda o arduino fecha as janela
@@ -55,11 +52,10 @@ const janelasAbreFecha = setInterval(() => {
     var msg2 = ':' + slaveAdr + '07070000';
     sPort.write(msg1);
     console.log(msg1);
-    sPort.write(msg2);
-    console.log(msg2);
+
 
 	}
-}, 60000); //faz isso a cada minuto
+}, 1000); //faz isso a cada minuto
 
 
 // servidor ouvindo em 'port'
