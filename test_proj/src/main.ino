@@ -81,7 +81,7 @@ float temperatura;
 
 int prim=0;
 
-
+int armanu=0;
 
 
 
@@ -110,14 +110,14 @@ int funcaoTeste(int value, int sensor, int bandeira)
   value = map(value, 0, 1023, 205, 819);
 
  //Serial.println(bandeira);
-  Serial.println(mot);
-  Serial.println("mot");
+  //Serial.println(mot);
+  //Serial.println("mot");
 
-  Serial.println(value);
-   Serial.println("value");
+ // Serial.println(value);
+  // Serial.println("value");
   
-  Serial.println(lado);
- Serial.println("lado");
+ // Serial.println(lado);
+ //Serial.println("lado");
 
   if (value > lado)
   {
@@ -305,6 +305,23 @@ void msgHandler()
 
                 }
 
+                if (temperatura2 > armanu)
+                  {
+                  
+                     digitalWrite(OUT1, OFF);   //ligar e desligar AR CONDICIONADO
+                    
+                  }
+
+
+                  if (temperatura2 <  armanu)
+                  
+                  {
+                
+                     
+                    digitalWrite(OUT1, ON);
+                  }
+
+
                  
 
           switch (cmd)
@@ -412,6 +429,28 @@ void msgHandler()
                 // debug
                 Serial.print("Leitura na Entrada Analogica ");
                 Serial.println(ain + 1);
+                
+                 if (ain == 2) {
+                  Le_temperatura(); // ar condicionado
+                
+                  uint16_t value = temperatura2;
+
+                  // int para string
+                  char buf[5];
+                  sprintf(buf, "%04d", value);
+
+                  // monta valor de retonro
+                  msg[7] = buf[0];
+                  msg[8] = buf[1];
+                  msg[9] = buf[2];
+                  msg[10] = buf[3];
+
+                  // Responde para o mestre
+                  Serial.print("Resposta do Escravo: ");
+                  Serial.println(msg);
+                  //default:
+
+                }
 
                 // executao comando
                 if (ain == 3) {
@@ -540,6 +579,7 @@ void msgHandler()
                 
                   Le_temperatura();
                   
+                  armanu=value;
                    if (temperatura2 > value)
                   {
                    Serial.println("teste entrou maior");
@@ -549,11 +589,12 @@ void msgHandler()
 
 
                   if (temperatura2 <  value)
+                 
                   
                   {
                 
                       Serial.println("teste entrou menor");
-                    digitalWrite(OUT1, OFF);
+                    digitalWrite(OUT1, ON);
                   }
 
   
@@ -595,7 +636,7 @@ void msgHandler()
 
                 }
                 if (aon - ANALOG_OUTPUT_OFFSET == 5) {
-                  tempac = value;
+                  armanu = value;
                   
                 }
                 if (aon - ANALOG_OUTPUT_OFFSET == 6) {
