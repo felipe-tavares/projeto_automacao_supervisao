@@ -86,6 +86,16 @@
       </p>
       
 + ## Protocolo de Comunicação
+  + O projeto utiliza o protocolo de comunicação mestre-escravo Modbus em modo ASCII via RS-232, o qual permite apenas dois dispositivos na rede, comumente conhecido como conexão ponto-a-ponto, sendo o Modbus o mestre, e o Arduino o escravo.
+  <p align="center">
+        <img width="740" height="420" src="images/protocol.jpeg">
+      </p>
+  + Alguns exemplos de mensagens utilizadas no projeto:
+      + Comunicação para fechar a porta - :0302020000
+      + Comunicação para definir temperatura do banheiro - :0307040015
+      + Resporta do firmware com velocidade do vento - :0306050030
+
+
    
    
     
