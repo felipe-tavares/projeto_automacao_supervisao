@@ -84,6 +84,10 @@
       <p align="center">
         <img width="740" height="420" src="pages/actions.PNG">
       </p>
+      
++ ## Protocolo de Comunicação
+   
+   
     
 + ## Periféricos
 
@@ -92,8 +96,7 @@
 
 + ## Software
   
-  + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/).
-  + **Protocolo de Comunicação:** O protocolo de comunicação utilizado foi o [Socket.IO](https://socket.io/).
+  + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/). Para o servidor foi utilizada a biblioteca         [Socket.IO](https://socket.io/).
   + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta **\.pio\build\uno**.
     
 
