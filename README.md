@@ -101,8 +101,6 @@
    
     
 + ## Periféricos
-
-  + **Sensores e Atuadores:** ...
   + **MCU:** O MCU utilizado tanto na simulação quanto na montagem prática foi o ATMega328p (Arduino).
 
 + ## Software
