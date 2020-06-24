@@ -136,7 +136,7 @@
             <script>
                 var socket = io();
 
-                //salvar as variaveis
+                //pega do html pra salvar as variaveis que o usuário configurou
                 function salvarPortaSerial() {
                     var PortaSerial = document.getElementById("portaSerial").value;
                     alert("Configurado com sucesso!");
@@ -159,6 +159,7 @@
                     const senha = document.getElementById("pwporta").value;
                     alert("Configurado com sucesso!");
                     console.log(senha);
+                    //torna disponivel a variavel para as outras paginas
                     localStorage.setItem("senha", senha);
                 }
 
@@ -170,6 +171,7 @@
                     //localStorage.setItem("metadeAbertura", metadeAbertura);
                 }
 
+                //enviar a temp para o firmware controlar
                 function salvarTemperaturaAC() {
                     var TempAc = document.getElementById('tmpAC').value;
                     alert("Configurado com sucesso!");
@@ -190,34 +192,20 @@
                     }
                 }
 
+                //salva os tempos das cortinas para o servidor enviar os comando na hr certa para o firmware
                 function salvarMetadeAbertura() {
                     var metadeAbertura = document.getElementById("hs1Cortinas").value;
                     var totalAbertura = document.getElementById("hs2Cortinas").value;
                     var fechamentoTotal = document.getElementById("hs3Cortinas").value;
                     alert("Configurado com sucesso!");
-                    //envia as variaveis pro arq do servidor
+                    //envia as variaveis pro servidor
                     socket.emit('Janelas', [metadeAbertura, totalAbertura, fechamentoTotal] );
                     console.log('Config Page: Enviando tempo metade Abertura ' +metadeAbertura+ 
                     ', tempo Total Abertura ' +totalAbertura+ 
                     ' tempo Fechado ' +fechamentoTotal);
                 }
 
-                /*var totalAbertura = function salvarTotalAbertura() {
-                    var totalAbertura = document.getElementById("hs2Cortinas").value;
-                    alert("Configurado com sucesso!");
-                    console.log(totalAbertura);
-                    return totalAbertura;
-                    //socket.emit('Windows', [totalAbertura] );
-                }
-
-                var fechamentoTotal = function salvarFechamentoTotal() {
-                    var fechamentoTotal = document.getElementById("hs3Cortinas").value;
-                    alert("Configurado com sucesso!");
-                    console.log(fechamentoTotal);
-                    return fechamentoTotal;
-                    //socket.emit('Windows', [fechamentoTotal] );
-                }*/
-
+                //envia banda morta para o firmware controlar 
                 function salvarBandaMorta() {
                     var bandaMorta = document.getElementById("valorBandaMorta").value;
                     alert("Configurado com sucesso!");

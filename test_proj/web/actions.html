@@ -129,8 +129,10 @@
             <script>
                 var socket = io();
                 
+                //importa a variavel da pagina config
                 const senha = localStorage.getItem("senha");
 
+                //compara a senha para enviar comando para abrir ou manter fechada a porta
                 function porta()
                 {
                     var senhaCompara = document.getElementById('pwporta').value;
@@ -146,12 +148,14 @@
                     }
                 }
 
+                //comando para desligar a sirene
                 function desligaSirene()
                 {
                     alert("Alarme Desligado!");
                     socket.emit('state', ['05', '03', '0000'] );
                 }
 
+                //comando para mudar a temperatura do AC
                 function mudarTempAr() 
                 {
                     var TempAc = document.getElementById('manualtmpAC').value;
@@ -228,7 +232,7 @@
                     }
                 }
 
-                //mudar a posição da cortina
+                //mudar a posição da cortina sala estar
                 function mudarValorCortinaEstar() {
                     var valorCortina = document.getElementById('posCortinaEstar').value;
                     if (valorCortina == 0)
@@ -258,6 +262,7 @@
                     }
                 }
 
+                //mudar a posição da cortina sala de jantar
                 function mudarValorCortinaJantar() {
                     var valorCortina = document.getElementById('posCortinaJantar').value;
                     if (valorCortina == 0)
