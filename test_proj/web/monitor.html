@@ -123,23 +123,25 @@
 
             function lertempAC() 
             {
-                console.log('Lendo status cortina Sala Estar');
-                socket.emit('state', ['06', '03', '0000'] );
+                console.log('Lendo status temperatura do AC');
+                socket.emit('state', ['06', '02', '0000'] );
             }
             
+            lertempAC();
+
             //chama as função com um certo delay se não encavala tudo e o firmware se perde
-            function att () {
+            /*function att () {
                 setTimeout(lerstatusporta, 1000);
-                setTimeout(lerstatussirene, 4000);
-                setTimeout(lertempbanheiro, 7000);
-                setTimeout(lervelocidadevento, 11000);
-                setTimeout(alertaVentoForte, 15000);
-                setTimeout(lercortinasalaJantar, 17500);
-                setTimeout(lercortinasalaEstar, 19500);
+                setTimeout(lerstatussirene, 3500);
+                setTimeout(lertempbanheiro, 6000);
+                setTimeout(lervelocidadevento, 8500);
+                setTimeout(alertaVentoForte, 12000);
+                setTimeout(lercortinasalaJantar, 15000);
+                setTimeout(lercortinasalaEstar, 17000);
                 setTimeout(lertempAC, 19500);
             }
 
-            setInterval(att, 20000);
+            setInterval(att, 20000);*/
 
         </script>
     </head>
