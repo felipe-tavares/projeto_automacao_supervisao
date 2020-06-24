@@ -20,34 +20,64 @@
             var socket = io();
 
             socket.on('retorno', function([op,estado]){ 
-                console.log(op);
+                console.log(estado);
                 if(op == 1){
                     document.getElementById("statusporta").value = estado;
                 }
                 else if(op == 2){
                     document.getElementById("statusalarme").value = estado;
                 }
-                
+                else if(op == 3){
+                    var valor = (estado+'°C')
+                    document.getElementById("tempBanheiro").value = valor;
+                }
+                else if(op == 4){
+                    var valor = (estado+'Km/h')
+                    document.getElementById("velocidadeVento").value = valor;
+                }
             });
 
             function lerstatusporta()
-            {         
+            {
                 socket.emit('state', ['02', '02', '0000'] );
                 console.log('Lendo status porta');
             }
 
             function lerstatussirene()
-            {         
+            {
                 socket.emit('state', ['02', '03', '0000'] );
                 console.log('Lendo status sirene');
             }
 
-            function att() {
-                lerstatusporta();
-                lerstatussirene();
+            function lervento()
+            {
+                socket.emit('state', ['06', '05', '0000'] );
+                console.log('Lendo velocidade do vento');
             }
 
-            setInterval(att, 10000);
+            function lertempbanheiro()
+            {
+                socket.emit('state', ['06', '04', '0000'] );
+                console.log('Lendo temp banheiro');
+            }
+
+            function lervento()
+            {
+                socket.emit('state', ['06', '05', '0000'] );
+                console.log('Lendo velocidade do vento');
+            }
+
+
+
+            function att () {
+                //setTimeout(lerstatusporta, 1);
+                //setTimeout(lerstatussirene, 2000);
+                //setTimeout(lertempbanheiro, 3000);
+                lervento();
+            }
+
+            setInterval(att, 2000);
+
         </script>
     </head>
 

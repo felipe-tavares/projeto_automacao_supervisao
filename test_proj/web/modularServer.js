@@ -145,7 +145,7 @@ sPort.open(function (err) {
 parser.on('data', (data) => {
   var new_data = data.split('');
   console.log(data);
-  //console.log('new data    ' + new_data);
+  console.log('new data    ' + new_data);
   if (new_data[21] == ':') {
     if ((new_data[26] == '0') && (new_data[27] == '2') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
       socket.emit('retorno', [ 1, 'ABERTA']);
@@ -158,6 +158,14 @@ parser.on('data', (data) => {
     }
     if ((new_data[26] == '0') && (new_data[27] == '3') && (new_data[28] == 'F') && (new_data[29] == 'F')) {
       socket.emit('retorno', [ 2, 'LIGADO']);
+    }
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '4')) {
+      var dado = new_data[30]+new_data[31];
+      socket.emit('retorno', [ 3, dado]);
+    }
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '5')) {
+      var dado = new_data[29]+new_data[30]+new_data[31];
+      socket.emit('retorno', [ 4, dado]);
     }
   }
 })
