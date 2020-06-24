@@ -127,10 +127,10 @@
                 socket.emit('state', ['06', '02', '0000'] );
             }
             
-            lertempAC();
+            //lertempAC();
 
             //chama as função com um certo delay se não encavala tudo e o firmware se perde
-            /*function att () {
+            function att () {
                 setTimeout(lerstatusporta, 1000);
                 setTimeout(lerstatussirene, 3500);
                 setTimeout(lertempbanheiro, 6000);
@@ -141,7 +141,7 @@
                 setTimeout(lertempAC, 19500);
             }
 
-            setInterval(att, 20000);*/
+            setInterval(att, 20000);
 
         </script>
     </head>
