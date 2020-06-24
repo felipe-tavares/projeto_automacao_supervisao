@@ -73,6 +73,10 @@
                     estado = (estado + '%');
                     document.getElementById("statusposCortinaEstar").value = estado;
                 }
+                else if(op == 8){
+                    var valor = (estado+'°C')
+                    document.getElementById("statustmpAC").value = valor;
+                }
             });
 
             function lerstatusporta()
@@ -116,19 +120,26 @@
                 console.log('Lendo status cortina Sala Estar');
                 socket.emit('state', ['06', '08', '0000'] );
             }
+
+            function lertempAC() 
+            {
+                console.log('Lendo status cortina Sala Estar');
+                socket.emit('state', ['06', '03', '0000'] );
+            }
             
             //chama as função com um certo delay se não encavala tudo e o firmware se perde
             function att () {
                 setTimeout(lerstatusporta, 1000);
-                setTimeout(lerstatussirene, 3500);
-                setTimeout(lertempbanheiro, 6000);
-                setTimeout(lervelocidadevento, 8500);
-                setTimeout(alertaVentoForte, 10000);
-                setTimeout(lercortinasalaJantar, 12500);
-                setTimeout(lercortinasalaEstar, 14900);
+                setTimeout(lerstatussirene, 4000);
+                setTimeout(lertempbanheiro, 7000);
+                setTimeout(lervelocidadevento, 11000);
+                setTimeout(alertaVentoForte, 15000);
+                setTimeout(lercortinasalaJantar, 17500);
+                setTimeout(lercortinasalaEstar, 19500);
+                setTimeout(lertempAC, 19500);
             }
 
-            setInterval(att, 15000);
+            setInterval(att, 20000);
 
         </script>
     </head>

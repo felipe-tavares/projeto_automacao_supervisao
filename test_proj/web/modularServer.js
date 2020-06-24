@@ -185,5 +185,10 @@ parser.on('data', (data) => {
       var dado = new_data[28]+new_data[29]+new_data[30]+new_data[31];
       socket.emit('retorno', [ 7, dado]);
     }
+    // OP = 8 É TEMPERATURA DO AC
+    if ((new_data[24] == '0') && (new_data[25] == '6') && (new_data[26] == '0') && (new_data[27] == '3')) {
+      var dado = new_data[30]+new_data[31];
+      socket.emit('retorno', [ 8, dado]);
+    }
   }
 })

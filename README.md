@@ -16,7 +16,7 @@
     + #### Diagrama esquemático do sistema:
     
     <p align="center">
-     <img width="640" height="320" src="diagrams/colorful_schematic_diagram.PNG">
+     <img width="840" height="620" src="schematic_diagram/schematic_diagram.png">
      </p>
      
 + ## Descrição do controle
@@ -84,6 +84,20 @@
       <p align="center">
         <img width="740" height="420" src="pages/actions.PNG">
       </p>
+      
++ ## Protocolo de Comunicação
+  + O projeto utiliza o protocolo de comunicação mestre-escravo Modbus em modo ASCII via RS-232, o qual permite apenas dois dispositivos na rede, comumente conhecido como conexão ponto-a-ponto, sendo o Modbus o mestre, e o Arduino o escravo.
+  <p align="center">
+        <img width="740" height="420" src="images/protocol.jpeg">
+      </p>
+  + Alguns exemplos de mensagens utilizadas no projeto:
+      + Comunicação para fechar a porta - :0302020000
+      + Comunicação para definir temperatura do banheiro - :0307040015
+      + Resporta do firmware com velocidade do vento - :0306050030
+
+
+   
+   
     
 + ## Periféricos
 
@@ -92,8 +106,7 @@
 
 + ## Software
   
-  + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/).
-  + **Protocolo de Comunicação:** O protocolo de comunicação utilizado foi o [Socket.IO](https://socket.io/).
+  + **IDE:** A IDE utilizada foi a [PlatformIO](https://platformio.org/) com o [Visual Studio Code](https://code.visualstudio.com/). Para o servidor foi utilizada a biblioteca         [Socket.IO](https://socket.io/).
   + **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta **\.pio\build\uno**.
     
 
